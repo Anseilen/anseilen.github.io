@@ -1,0 +1,29 @@
+---
+layout: notice
+---
+<main>
+  <section id="faq" class="faq section-bg" style="min-height: 100vh; padding-top: 140px;">
+    <div class="container">
+      <div class="section-title">
+        <h4>공지사항</h4>
+      </div>
+
+      <div class="accordion-list">
+        <ul>
+          <li style="min-height: calc(100vh - 216px);">
+            <i class="icofont-simple-right icon-help"></i>
+            <a>{{ page.title }}</a>
+            <div class="collapse show mt-4 pb-5" data-parent=".accordion-list">
+            {{ content }}
+            </div>
+            <div style="position: absolute; bottom: 20px;">
+              <a role="button" class="btn btn-outline-dark" href="/notices" style="width: 100px;">
+              목록
+              </a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
