@@ -1,0 +1,96 @@
+.post .accordion-list {
+  padding: 0 100px;
+}
+
+.post .accordion-list ul {
+  padding: 0;
+  list-style: none;
+}
+
+.post .accordion-list li {
+  padding: 20px;
+  background: #fff;
+  border-radius: 4px;
+  position: relative;
+}
+
+.post .accordion-list .content ul {
+  list-style: circle;
+}
+
+.post .accordion-list .content li {
+  padding: 0;
+  margin: 5px 30px;
+  background: #fff;
+  border-radius: 4px;
+  position: relative;
+}
+
+.post h3 {
+  margin-top: 20px;
+}
+
+.post .accordion-list li + li {
+  margin-top: 15px;
+}
+
+.post .accordion-list a {
+  display: block;
+  position: relative;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  padding: 0 30px;
+  outline: none;
+}
+
+.post .accordion-list .icon-help {
+  font-size: 15px;
+  position: absolute;
+  margin-top: 4px;
+  right: 0;
+  left: 20px;
+  color: #32435f;
+}
+
+.post .accordion-list .icon-show, .post .accordion-list .icon-close {
+  font-size: 24px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.post .accordion-list p {
+  margin-bottom: 0;
+  padding: 10px 0 0 0;
+}
+
+.post .accordion-list .icon-show {
+  display: none;
+}
+
+.post .accordion-list a {
+  color: #32435f;
+}
+
+.post .accordion-list a.collapsed {
+  color: #32435f;
+}
+
+.post .accordion-list a.collapsed:hover {
+  color: #a67f78;
+}
+
+.post .accordion-list a.collapsed .icon-show {
+  display: inline-block;
+}
+
+.post .accordion-list a.collapsed .icon-close {
+  display: none;
+}
+
+@media (max-width: 1200px) {
+  .post .accordion-list {
+    padding: 0;
+  }
+}
