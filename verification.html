@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+  <title>풀다 - 설문 및 계정인증</title>
+
+  <!-- Vendor CSS Files -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet" type="text/css">
+  <link href="https://cdn.jsdelivr.net/npm/quasar@1.12.8/dist/quasar.min.css" rel="stylesheet" type="text/css">
+
+  <!-- Template Main CSS File -->
+  <link href="/assets/css/style.css" rel="stylesheet">
+  <link href="/assets/css/styles.css" rel="stylesheet">
+
+</head>
+
+<body>
+  <div id="q-app">
+    <q-layout view="hHh lpR fFf">
+      <q-page-container>
+        <q-page class="row justify-center content-center" style="background-color: #e1dcd9;" padding>
+          <div>
+            <q-form
+              class="q-gutter-md"
+              @submit="onSubmit"
+            >
+              <q-card flat>
+                <q-card-section>
+                  안녕하세요?<br />
+                  풀다 베타테스트에 참여해 주셔서 감사드립니다.<br />
+                  풀다는 상담현장에 계시는 선생님들이 보다 편하고 빠르게 축어록을 작성하실 수 있도록 돕는 서비스입니다.<br />
+                  이를 통해 풀다는 상담사 선생님들의 수련에 대한 접근성이 더 높아지기를 기대합니다.<br />
+                  또한 수련을 통한 선생님들의 성장이 곧 내담자들에게 긍정적인 영향으로 흘러갈것을 믿습니다.<br />
+                  상담사 선생님들을 풀다가 응원합니다!<br /><br />
+                  설문을 제출하시면 인증이 완료됩니다.<br /><br />
+                  감사합니다 :)<br /><br />
+                  <span class="text-red">* 필수항목</span>
+                </q-card-section>
+              </q-card>
+              <q-card flat>
+                <q-card-section>
+                  <div class="q-mb-md">
+                    1. 선생님께서는 축어록을 작성해본 경험이 있으신가요?
+                    <span class="text-red">*</span>
+                  </div>
+                  <div class="row">
+                    <q-option-group
+                      v-model="answers[0]"
+                      type="radio"
+                      color="poolda-primary"
+                      :options="optionsYorN"
+                    ></q-option-group>
+                  </div>
+                </q-card-section>
+              </q-card>
+              <q-card flat>
+                <q-card-section>
+                  <div class="q-mb-md">
+                    2. 축어록을 처음 작성하신 날은 언제인가요? (대략적인 날짜를 선택해주세요)
+                    <span class="text-red">*</span>
+                  </div>
+                  <div class="row">
+                    <q-input
+                      class="width-80"
+                      v-model="answers[1]"
+                      mask="date"
+                      filled
+                      :disable="!answers[0]"
+                      :rules="[(val) => !!val || !answers[0] || '해당 항목을 반드시 작성해야합니다.']"
+                    ></q-input>
+                  </div>
+                </q-card-section>
+              </q-card>
+              <q-card flat>
+                <q-card-section>
+                  <div class="q-mb-md row">
+                    3. 축어록을 처음 작성하신 날부터 지금까지 총 몇번을 작성하셨나요? <br />
+                    잘 모르시겠다면 대략적으로 입력해주세요:) 
+                    <span class="text-red">*</span>
+                  </div>
+                  <div class="row">
+                    <q-input
+                      class="width-80"
+                      v-model="answers[2]"
+                      type="number"
+                      filled
+                      :disable="!answers[0]"
+                      :rules="[(val) => !!val || !answers[0] || '해당 항목을 반드시 작성해야합니다.']"
+                    ></q-input>
+                  </div>
+                </q-card-section>
+              </q-card>
+              <q-card flat>
+                <q-card-section>
+                  <div class="q-mb-md row">
+                    4. 자격증 취득과 별개로 축어록을 작성하실 의향이 있으신가요? 
+                    <span class="text-red">*</span>
+                  </div>
+                  <div>
+                    작성할 의향이 전혀 없다
+                    <q-option-group
+                      v-model="answers[3]"
+                      type="radio"
+                      color="poolda-primary"
+                      :options="options5"
+                    ></q-option-group>
+                    작성할 의향이 매우 있다
+                  </div>
+                </q-card-section>
+              </q-card>
+              <q-card flat>
+                <q-card-section>
+                  <div class="q-mb-md row">
+                    5. 자격증 취득과 별개로 축어록을 작성 또는 작성하지 않으시는 선생님만의 이유를 알려주세요. 
+                    <span class="text-red">*</span>
+                  </div>
+                  <div class="row">
+                    <q-input
+                      class="width-80"
+                      v-model="answers[4]"
+                      filled
+                      autogrow
+                      :rules="[(val) => !!val || '해당 항목을 반드시 작성해야합니다.']"
+                    ></q-input>
+                  </div>
+                </q-card-section>
+              </q-card>
+              <q-card flat>
+                <q-card-section>
+                  <div class="q-mb-md row">
+                    6. 1회기(50분 기준) 분량의 축어록을 작성하시는데 몇 시간이 걸리나요? 
+                    <span class="text-red">*</span>
+                  </div>
+                  <div class="row">
+                    <q-input
+                      class="width-80"
+                      v-model="answers[5]"
+                      type="number"
+                      filled
+                      bottom-slots
+                      :disable="!answers[0]"
+                      :rules="[(val) => !!val || !answers[0] || '해당 항목을 반드시 작성해야합니다.']"
+                    >
+                      <template v-slot:hint>
+                        예) 4시간 30분 -> 4.5
+                      </template>
+                    </q-input>
+                  </div>
+                </q-card-section>
+              </q-card>
+              <q-card flat>
+                <q-card-section>
+                  <div class="q-mb-md row">
+                    7. 축어록 작성이 얼마나 힘들다고 생각하시나요? 
+                    <span class="text-red">*</span>
+                  </div>
+                  <div>
+                    전혀 힘들지 않다
+                    <q-option-group
+                      v-model="answers[6]"
+                      type="radio"
+                      color="poolda-primary"
+                      :options="options10"
+                    ></q-option-group>
+                    매우 힘들다 (슈퍼비전을 포기하고 싶을 정도로)
+                  </div>
+                </q-card-section>
+              </q-card>
+              <q-card flat>
+                <q-card-section>
+                  <div class="q-mb-md row">
+                    8. 축어록 작성 보조 서비스가 필요하다고 생각하시나요? 
+                    <span class="text-red">*</span>
+                  </div>
+                  <div>
+                    전혀 필요없다
+                    <q-option-group
+                      v-model="answers[7]"
+                      type="radio"
+                      color="poolda-primary"
+                      :options="options5"
+                    ></q-option-group>
+                    매우 필요하다
+                  </div>
+                </q-card-section>
+              </q-card>
+              <q-card flat>
+                <q-card-section>
+                  <div class="q-mb-md row">
+                    9. 선생님께서 축어록 작성시 겪는 어려움을 해결하기 위해
+                    축어록 작성 보조 서비스는 어떤 기능이 있어야 한다고 생각하시나요?
+                    <span class="text-red">*</span>
+                  </div>
+                  <div class="row">
+                    <q-input
+                      class="width-80"
+                      v-model="answers[8]"
+                      filled
+                      autogrow
+                      :rules="[(val) => !!val || '해당 항목을 반드시 작성해야합니다.']"
+                    ></q-input>
+                  </div>
+                </q-card-section>
+              </q-card>
+              <q-card flat>
+                <q-card-section>
+                  <div class="q-mb-md">
+                    10. 위(9번 항목)의 기능을 제공하는 서비스가 있다면 비용을 지불하고 사용하실 의향이 있으신가요?
+                    <span class="text-red">*</span>
+                  </div>
+                  <div class="row">
+                    <q-option-group
+                      v-model="answers[9]"
+                      type="radio"
+                      color="poolda-primary"
+                      :options="optionsYorN"
+                    ></q-option-group>
+                  </div>
+                </q-card-section>
+              </q-card>
+              <q-card flat>
+                <q-card-section>
+                  <div class="q-mb-md row">
+                    11. 위(9번 항목)의 서비스는 선생님에게 얼마의 가치가 있나요? 금액을 적어주세요. (1회 이용시)
+                    <span class="text-red">*</span>
+                  </div>
+                  <div class="row">
+                    <q-input
+                      class="width-80"
+                      v-model="answers[10]"
+                      type="number"
+                      filled
+                      :rules="[(val) => !!val || '해당 항목을 반드시 작성해야합니다.']"
+                    ></q-input>
+                  </div>
+                </q-card-section>
+              </q-card>
+              <q-card flat>
+                <q-card-section>
+                  <div class="q-mb-md row">
+                    12. 슈퍼비전을 지금까지 몇 번 받아보셨나요?
+                    <span class="text-red">*</span>
+                  </div>
+                  <div class="row">
+                    <q-input
+                      class="width-80"
+                      v-model="answers[11]"
+                      type="number"
+                      filled 
+                      :rules="[(val) => !!val || '해당 항목을 반드시 작성해야합니다.']"
+                    ></q-input>
+                  </div>
+                </q-card-section>
+              </q-card>
+              <q-card flat>
+                <q-card-section>
+                  <div class="q-mb-md row">
+                    13. 가장 추천하는 슈퍼바이저의 성함을 알려주세요.
+                    <span class="text-red">*</span>
+                  </div>
+                  <div class="row">
+                    <q-input
+                      class="width-80"
+                      v-model="answers[12]"
+                      filled
+                      :rules="[(val) => !!val || '해당 항목을 반드시 작성해야합니다.']"
+                    ></q-input>
+                  </div>
+                </q-card-section>
+              </q-card>
+              <q-card flat>
+                <q-card-section>
+                  <div class="q-mb-md row">
+                    14. 추천해주신 슈퍼바이저의 어떤 점이 가장 긍정적으로 느껴지셨나요?
+                    <span class="text-red">*</span>
+                  </div>
+                  <div class="row">
+                    <q-input
+                      class="width-80"
+                      v-model="answers[13]"
+                      filled
+                      autogrow
+                      :rules="[(val) => !!val || '해당 항목을 반드시 작성해야합니다.']"
+                    ></q-input>
+                  </div>
+                </q-card-section>
+              </q-card>
+              <q-card flat>
+                <q-card-section>
+                  <div class="q-mb-md">
+                    15. 성별을 알려주세요.
+                    <span class="text-red">*</span>
+                  </div>
+                  <div class="row">
+                    <q-option-group
+                      v-model="answers[14]"
+                      type="radio"
+                      color="poolda-primary"
+                      :options="optionsSex"
+                    ></q-option-group>
+                  </div>
+                </q-card-section>
+              </q-card>
+              <q-card flat>
+                <q-card-section>
+                  <div class="q-mb-md row">
+                    16. 출생년도를 알려주세요.
+                    <span class="text-red">*</span>
+                  </div>
+                  <div class="row">
+                    <q-input
+                      class="width-80"
+                      v-model="answers[15]"
+                      type="number"
+                      filled
+                      :rules="[(val) => !!val || '해당 항목을 반드시 작성해야합니다.']"
+                    ></q-input>
+                  </div>
+                </q-card-section>
+              </q-card>
+              <q-card flat>
+                <q-card-section>
+                  <div class="q-mb-md">
+                    17. 학력을 알려주세요.
+                    <span class="text-red">*</span>
+                  </div>
+                  <div class="row">
+                    <q-option-group
+                      v-model="answers[16]"
+                      type="radio"
+                      color="poolda-primary"
+                      :options="optionsEdu"
+                    ></q-option-group>
+                  </div>
+                </q-card-section>
+              </q-card>
+              <q-card flat>
+                <q-card-section>
+                  <div class="q-mb-md">
+                    18. 현재 직업을 알려주세요.
+                    <span class="text-red">*</span>
+                  </div>
+                  <div>
+                    <q-option-group
+                      v-model="answers[17]"
+                      type="radio"
+                      color="poolda-primary"
+                      :options="optionsJob"
+                    ></q-option-group>
+                    <q-input
+                      v-if="answers[17] === '기타'"
+                      v-model="answersEtc[0]"
+                      class="width-80"
+                      filled
+                      dense
+                      :rules="[(val) => !!val || '해당 항목을 반드시 작성해야합니다.']"
+                    ></q-input>
+                  </div>
+                </q-card-section>
+              </q-card>
+              <q-card flat>
+                <q-card-section>
+                  <div class="q-mb-md row">
+                    19. 현재 어떤 자격증들을 보유하고 계신가요?
+                    <span class="text-red">*</span>
+                  </div>
+                  <div class="row">
+                    <q-input
+                      v-model="answers[18]"
+                      class="width-80"
+                      filled
+                      bottom-slots
+                      :rules="[(val) => !!val || '해당 항목을 반드시 작성해야합니다.']"
+                    >
+                      <template v-slot:hint>
+                        예) 상담심리사 2급 (한국상담심리학회) / 청소년상담사 3급 (국가자격) / 없음
+                      </template>
+                    </q-input>
+                  </div>
+                </q-card-section>
+              </q-card>
+              <q-card flat>
+                <q-card-section>
+                  <div class="q-mb-md row">
+                    20. 현재 어떤 자격증을 목표하고 있으신가요?
+                    <span class="text-red">*</span>
+                  </div>
+                  <div class="row">
+                    <q-input
+                      v-model="answers[19]"
+                      class="width-80"
+                      filled
+                      bottom-slots
+                      :rules="[(val) => !!val || '해당 항목을 반드시 작성해야합니다.']"
+                    >
+                      <template v-slot:hint>
+                        최대 2개까지 적어주세요. 없으실 경우 "없음" 이라고 적어주세요.
+                      </template>
+                    </q-input>
+                  </div>
+                </q-card-section>
+              </q-card>
+              <q-card flat>
+                <q-card-section>
+                  <div class="q-mb-md">
+                    21. 풀다를 어떻게 알게 되셨나요?
+                    <span class="text-red">*</span>
+                  </div>
+                  <div>
+                    <q-option-group
+                      v-model="answers[20]"
+                      type="radio"
+                      color="poolda-primary"
+                      :options="optionsRef"
+                    ></q-option-group>
+                    <q-input
+                      v-if="answers[20] === '기타'"
+                      v-model="answersEtc[1]"
+                      class="width-80"
+                      filled
+                      dense
+                      :rules="[(val) => !!val || '해당 항목을 반드시 작성해야합니다.']"
+                    ></q-input>
+                  </div>
+                </q-card-section>
+              </q-card>
+              <q-card flat>
+                <q-card-section>
+                  <div class="q-mb-md row">
+                    풀다팀에게 전하고 싶은 이야기를 남겨주세요! 
+                  </div>
+                  <div class="row">
+                    <q-input
+                      v-model="answers[21]"
+                      class="width-80"
+                      filled
+                      autogrow
+                    ></q-input>
+                  </div>
+                </q-card-section>
+              </q-card>
+              
+              <div>
+                <q-btn
+                  label="설문제출 및 계정인증"
+                  type="submit"
+                  color="poolda-primary"
+                  unelevated
+                />
+              </div>
+            </q-form>
+            <div class="q-my-lg text-center">
+              풀다 베타 테스터 설문지
+            </div>
+          </div>
+        </q-page>
+      </q-page-container>
+    </q-layout>
+  </div>
+
+  <!-- Vendor JS Files -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@^2.0.0/dist/vue.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/quasar@1.12.8/dist/quasar.umd.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
+
+  <script>
+    /*
+      Example kicking off the UI. Obviously, adapt this to your specific needs.
+      Assumes you have a <div id="q-app"></div> in your <body> above
+      */
+    new Vue({
+      el: '#q-app',
+      data() {
+        return {
+          urlParams: null,
+          optionsYorN: [
+            { label: "있다", value: true },
+            { label: "없다", value: false },
+          ],
+          options5: [
+            { label: 1, value: 1 },
+            { label: 2, value: 2 },
+            { label: 3, value: 3 },
+            { label: 4, value: 4 },
+            { label: 5, value: 5 },
+          ],
+          options10: [
+            { label: 1, value: 1 },
+            { label: 2, value: 2 },
+            { label: 3, value: 3 },
+            { label: 4, value: 4 },
+            { label: "5 견딜만 하다", value: 5 },
+            { label: 6, value: 6 },
+            { label: 7, value: 7 },
+            { label: 8, value: 8 },
+            { label: 9, value: 9 },
+            { label: 10, value: 10 },
+          ],
+          optionsSex: [
+            { label: "여성", value: "여성" },
+            { label: "남성", value: "남성" },
+            { label: "응답하지 않음", value: "응답하지 않음"},
+          ],
+          optionsEdu: [
+            { label: "고등학교 졸업", value: "고등학교 졸업" },
+            { label: "대학교 재학", value: "대학교 재학" },
+            { label: "대학교 졸업", value: "대학교 졸업" },
+            { label: "석사과정 재학", value: "석사과정 재학" },
+            { label: "석사과정 졸업 (수료)", value: "석사과정 졸업 (수료)" },
+            { label: "박사과정 재학", value: "박사과정 재학" },
+            { label: "박사과정 졸업 (수료)", value: "박사과정 졸업 (수료)" },
+          ],
+          optionsJob: [
+            { label: "대학원생 (석사)", value: "대학원생 (석사)" },
+            { label: "대학원생 (박사)", value: "대학원생 (박사)" },
+            { label: "풀타임 상담사", value: "풀타임 상담사" },
+            { label: "파트타임 상담사", value: "파트타임 상담사" },
+            { label: "수련생 (졸업은 했으나 현장에서 일하지 않음)", value: "수련생" },
+            { label: "전문상담교사", value: "전문상담교사" },
+            { label: "교수", value: "교수" },
+            { label: "기타", value: "기타" },
+          ],
+          optionsRef: [
+            { label: "네이버 카페", value: "네이버 카페" },
+            { label: "네이버 밴드", value: "네이버 밴드" },
+            { label: "온라인 검색", value: "온라인 검색" },
+            { label: "지인 추천", value: "지인 추천" },
+            { label: "기타", value: "기타" },
+          ],
+          answers: [],
+          answersEtc: [],
+          firebaseAuth: null,
+        }
+      },
+      methods: {
+        onSubmit: function() {
+          // this.submit();
+          this.verify();
+        },
+        submit: function() {
+          for (let i = 0; i < this.answers.length - 1; i++) {
+            if (!this.answers[i]) {
+              alert(`${i + 1}번째 항목을 입력하지 않았습니다. 확인해주세요.`);
+              return;
+            }
+          }
+        },
+        verify: function() {
+          const actionCode = this.urlParams.get("oobCode");
+          this.firebaseAuth.applyActionCode(actionCode)
+            .then((response) => {
+              console.log(response);
+            })
+            .catch((error) => {
+              console.log(error);
+            })
+        },
+      },
+      created() {
+      },
+      mounted() {
+        this.urlParams = new URLSearchParams(window.location.search);
+        const config = {
+          apiKey: this.urlParams.get("apiKey"),
+        };
+        const app = firebase.initializeApp(config);
+        this.firebaseAuth = app.auth();
+      },
+      // ...etc
+    })
+  </script>
+
+</body>
+
+</html>
+
