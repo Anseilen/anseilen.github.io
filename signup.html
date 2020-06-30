@@ -22,125 +22,122 @@
 
 <body>
   <div id="q-app">
-    <q-layout view="hHh lpR fFf">
-      <q-page-container>
-        <q-page class="row justify-center content-center" padding>
-          <div class="text-center">
-            <q-card v-if="!isSucceeded" flat bordered>
-              <q-card-section>
-                <div class="text-h6">풀다 회원 가입</div>
-              </q-card-section>
-              <q-card-section>
-                <div class="q-pa-sm" style="width: 300px">
-                  <div v-if="error" class="text-red" style="margin-bottom: 20px;">
-                    {{ error }}
+    <div class="row justify-center content-center" style="height: 100vh;">
+      <div class="text-center">
+        <!-- <q-card v-if="!isSucceeded" flat bordered>
+          <q-card-section>
+            <div class="text-h6">풀다 회원 가입</div>
+          </q-card-section>
+          <q-card-section>
+            <div class="q-pa-sm" style="width: 300px">
+              <div v-if="error" class="text-red" style="margin-bottom: 20px;">
+                {{ error }}
+              </div>
+              <q-form class="q-gutter-sm" @submit="onSubmit">
+                <q-input
+                  filled
+                  v-model="email"
+                  label="이메일"
+                  lazy-rules
+                  :rules="[
+                    val => (val && val.length > 0) || '이메일을 입력해주세요.'
+                  ]"
+                ></q-input>
+                <q-input
+                  filled
+                  v-model="password1"
+                  :type="isPwd ? 'password' : 'text'"
+                  label="비밀번호"
+                  hint="8자 이상. 영문/숫자 조합"
+                  lazy-rules
+                  :rules="[
+                    val =>
+                      (val !== null && val !== '') ||
+                      '비밀번호를 입력해주세요.',
+                    val => checkPw(val)
+                  ]"
+                >
+                  <template v-slot:append>
+                    <q-icon
+                      :name="isPwd ? 'visibility_off' : 'visibility'"
+                      class="cursor-pointer"
+                      @click="isPwd = !isPwd"
+                    ></q-icon>
+                  </template>
+                </q-input>
+                <q-input
+                  filled
+                  v-model="password2"
+                  :type="isPwd ? 'password' : 'text'"
+                  label="비밀번호 확인"
+                  lazy-rules
+                  :rules="[
+                    val =>
+                      val === password1 || '비밀번호가 일치하지 않습니다.'
+                  ]"
+                ></q-input>
+                <div>
+                  이용약관 동의
+                </div>
+                <div class="row justify-center">
+                  <q-checkbox v-model="termOfService"></q-checkbox>
+                  <div class="flex flex-center">
+                    <span>서비스 이용약관 (필수)</span>
+                    <span class="q-mx-sm">></span>
+                    <a href="https://storage.googleapis.com/poolda-homepage-assets/pdf/term_of_service.pdf" target="_blank">보기</a>
                   </div>
-                  <q-form class="q-gutter-sm" @submit="onSubmit">
-                    <q-input
-                      filled
-                      v-model="email"
-                      label="이메일"
-                      lazy-rules
-                      :rules="[
-                        val => (val && val.length > 0) || '이메일을 입력해주세요.'
-                      ]"
-                    ></q-input>
-                    <q-input
-                      filled
-                      v-model="password1"
-                      :type="isPwd ? 'password' : 'text'"
-                      label="비밀번호"
-                      hint="8자 이상. 영문/숫자 조합"
-                      lazy-rules
-                      :rules="[
-                        val =>
-                          (val !== null && val !== '') ||
-                          '비밀번호를 입력해주세요.',
-                        val => checkPw(val)
-                      ]"
-                    >
-                      <template v-slot:append>
-                        <q-icon
-                          :name="isPwd ? 'visibility_off' : 'visibility'"
-                          class="cursor-pointer"
-                          @click="isPwd = !isPwd"
-                        ></q-icon>
-                      </template>
-                    </q-input>
-                    <q-input
-                      filled
-                      v-model="password2"
-                      :type="isPwd ? 'password' : 'text'"
-                      label="비밀번호 확인"
-                      lazy-rules
-                      :rules="[
-                        val =>
-                          val === password1 || '비밀번호가 일치하지 않습니다.'
-                      ]"
-                    ></q-input>
-                    <div>
-                      이용약관 동의
-                    </div>
-                    <div class="row justify-center">
-                      <q-checkbox v-model="termOfService"></q-checkbox>
-                      <div class="flex flex-center">
-                        <span>서비스 이용약관 (필수)</span>
-                        <span class="q-mx-sm">></span>
-                        <a href="https://storage.googleapis.com/poolda-homepage-assets/pdf/term_of_service.pdf" target="_blank">보기</a>
-                      </div>
-                    </div>
-                    <div class="row justify-center">
-                      <q-checkbox v-model="privacyPolicy"></q-checkbox>
-                      <div class="flex flex-center">
-                        <span>개인정보처리방침 (필수)</span>
-                        <span class="q-mx-sm">></span>
-                        <a href="https://storage.googleapis.com/poolda-homepage-assets/pdf/privacy_policy.pdf" target="_blank">보기</a>
-                      </div>
-                    </div>
-                   <div>
-                      <q-btn label="가입하기" type="submit" color="poolda-primary" unelevated></q-btn>
-                    </div>
-                  </q-form>
                 </div>
-              </q-card-section>
-            </q-card>
-            <q-card v-else flat bordered>
-              <q-card-section>
-                <div class="text-h6">이메일 인증을 진행해주세요</div>
-                <div v-if="error" class="text-red">
-                  {{ error }}
+                <div class="row justify-center">
+                  <q-checkbox v-model="privacyPolicy"></q-checkbox>
+                  <div class="flex flex-center">
+                    <span>개인정보처리방침 (필수)</span>
+                    <span class="q-mx-sm">></span>
+                    <a href="https://storage.googleapis.com/poolda-homepage-assets/pdf/privacy_policy.pdf" target="_blank">보기</a>
+                  </div>
                 </div>
-                <div v-if="msg" class="text-green">
-                  {{ msg }}
+                <div>
+                  <q-btn label="가입하기" type="submit" color="poolda-primary" unelevated></q-btn>
                 </div>
-              </q-card-section>
-              <q-card-section>
-                {{ email }} 로 인증 메일을 전송하였습니다.<br />
-                인증을 진행하시면 회원 가입이 완료됩니다. <br />
-                인증 메일을 받지 못하셨다면 재전송 버튼을 눌러주세요. <br />
-                <q-btn label="재전송" type="submit" color="poolda-primary" @click="onClickResend" unelevated></q-btn>
-              </q-card-section>
-            </q-card>
-          </div>
-        </q-page>
-      </q-page-container>
-    </q-layout>
+              </q-form>
+            </div>
+          </q-card-section>
+        </q-card>
+        <q-card v-else flat bordered>
+          <q-card-section>
+            <div class="text-h6">이메일 인증을 진행해주세요</div>
+            <div v-if="error" class="text-red">
+              {{ error }}
+            </div>
+            <div v-if="msg" class="text-green">
+              {{ msg }}
+            </div>
+          </q-card-section>
+          <q-card-section>
+            {{ email }} 로 인증 메일을 전송하였습니다.<br />
+            인증을 진행하시면 회원 가입이 완료됩니다. <br />
+            인증 메일을 받지 못하셨다면 재전송 버튼을 눌러주세요. <br />
+            <q-btn label="재전송" type="submit" color="poolda-primary" @click="onClickResend" unelevated></q-btn>
+          </q-card-section>
+        </q-card> -->
+      </div>
+    </div>
   </div>
 
   <!-- Vendor JS Files -->
+  <script src="https://cdn.jsdelivr.net/npm/quasar@1.12.8/dist/quasar.ie.polyfills.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@^2.0.0/dist/vue.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/quasar@1.12.8/dist/quasar.umd.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
 
-  <script>
+  <script type="text/javascript">
     /*
       Example kicking off the UI. Obviously, adapt this to your specific needs.
       Assumes you have a <div id="q-app"></div> in your <body> above
       */
     new Vue({
       el: '#q-app',
-      data() {
+      data: function() {
         return {
           email: "",
           password1: "",
@@ -168,22 +165,19 @@
           firebase
             .auth()
             .createUserWithEmailAndPassword(this.email, this.password1)
-            .then((credential) => {
+            .then(function(credential) {
               this.user = credential.user;
               credential.user.sendEmailVerification()
-                .then(() => {
+                .then(function() {
                   this.error = "";
                   this.isSucceeded = true;
                 })
-                .catch((error) => {
+                .catch(function() {
                   this.isSucceeded = true;
-                  this.error = `
-                    인증 메일 전송에 실패하였습니다.\n
-                    고객 센터에 문의해주세요.
-                  `;
+                  this.error = "인증 메일 전송에 실패하였습니다.\n고객 센터에 문의해주세요.";
                 })
             })
-            .catch((error) => {
+            .catch(function(error) {
               let message = "";
               if (error.code === "auth/invalid-email")
                 message = "이메일 형태를 확인해주세요.";
@@ -196,18 +190,17 @@
         },
         onClickResend: function() {
           this.user.sendEmailVerification()
-            .then(() => {
+            .then(function() {
               this.error = "";
               this.msg = "전송하였습니다.";
             })
-            .catch((error) => {
-              this.error = `
-                인증 메일 전송에 실패하였습니다.\n
-              `;
+            .catch(function(error) {
+              this.error = "인증 메일 전송에 실패하였습니다.";
             })
         },
       },
-      created() {
+      created: function() {
+        console.log("ie test!");
         let config = {
           apiKey: "AIzaSyCXT2nKHukUxynxZ_u_lAn-TLA086SkyxM",
           // apiKey: "AIzaSyAthUD392Fd9X4wRsszbp686eJs1perU-o",
