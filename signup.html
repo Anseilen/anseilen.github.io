@@ -21,12 +21,19 @@
 </head>
 
 <body>
-  <div id="q-app">
+  <div id="loading">
+    로딩 중... 
+  </div>
+  <div id="q-app" style="display: none;">
     <q-layout view="hHh lpR fFf">
       <q-page-container>
-        <q-page class="row justify-center content-center" padding>
+        <q-page
+          class="flex flex-center"
+          style="background-color: #e1dcd9;"
+          padding
+        >
           <div class="text-center">
-            <q-card v-if="!isSucceeded" flat bordered>
+            <q-card v-if="!isSucceeded" flat>
               <q-card-section>
                 <div class="text-h6">풀다 회원 가입</div>
               </q-card-section>
@@ -41,10 +48,13 @@
                       v-model="email"
                       label="이메일"
                       lazy-rules
-                      :rules="[
-                        val => (val && val.length > 0) || '이메일을 입력해주세요.'
-                      ]"
-                    ></q-input>
+                      bottom-slots
+                      :error="!isEmailValid"
+                    >
+                      <template v-slot:error>
+                        이메일을 입력해주세요.
+                      </template>
+                    </q-input>
                     <q-input
                       filled
                       v-model="password1"
@@ -52,12 +62,8 @@
                       label="비밀번호"
                       hint="8자 이상. 영문/숫자 조합"
                       lazy-rules
-                      :rules="[
-                        val =>
-                          (val !== null && val !== '') ||
-                          '비밀번호를 입력해주세요.',
-                        val => checkPw(val)
-                      ]"
+                      bottom-slots
+                      :error="!isPassword1Valid"
                     >
                       <template v-slot:append>
                         <q-icon
@@ -66,6 +72,9 @@
                           @click="isPwd = !isPwd"
                         ></q-icon>
                       </template>
+                      <template v-slot:error>
+                        {{ password1Error }}
+                      </template>
                     </q-input>
                     <q-input
                       filled
@@ -73,11 +82,13 @@
                       :type="isPwd ? 'password' : 'text'"
                       label="비밀번호 확인"
                       lazy-rules
-                      :rules="[
-                        val =>
-                          val === password1 || '비밀번호가 일치하지 않습니다.'
-                      ]"
-                    ></q-input>
+                      bottom-slots
+                      :error="!isPassword2Valid"
+                    >
+                      <template v-slot:error>
+                        비밀번호가 일치하지 않습니다.
+                      </template>
+                    </q-input>
                     <div>
                       이용약관 동의
                     </div>
@@ -97,14 +108,22 @@
                         <a href="https://storage.googleapis.com/poolda-homepage-assets/pdf/privacy_policy.pdf" target="_blank">보기</a>
                       </div>
                     </div>
-                   <div>
-                      <q-btn label="가입하기" type="submit" color="poolda-primary" unelevated></q-btn>
+                    <div>
+                      <q-btn
+                        label="가입하기"
+                        type="submit"
+                        color="poolda-primary"
+                        unelevated
+                        :disable="isSignupProgressing"
+                      >
+                        <div v-if="isSignupProgressing" class="loader"></div>
+                      </q-btn>
                     </div>
                   </q-form>
                 </div>
               </q-card-section>
             </q-card>
-            <q-card v-else flat bordered>
+            <q-card v-else flat>
               <q-card-section>
                 <div class="text-h6">이메일 인증을 진행해주세요</div>
                 <div v-if="error" class="text-red">
@@ -128,23 +147,26 @@
   </div>
 
   <!-- Vendor JS Files -->
+  <script src="https://cdn.jsdelivr.net/npm/quasar@1.12.8/dist/quasar.ie.polyfills.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@^2.0.0/dist/vue.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/quasar@1.12.8/dist/quasar.umd.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
 
-  <script>
+  <script type="text/javascript">
     /*
       Example kicking off the UI. Obviously, adapt this to your specific needs.
       Assumes you have a <div id="q-app"></div> in your <body> above
       */
     new Vue({
       el: '#q-app',
-      data() {
+      data: function() {
         return {
           email: "",
           password1: "",
+          password1Error: "",
           password2: "",
+          isSignupProgressing: false,
           isPwd: true,
           isSucceeded: false,
           user: null,
@@ -154,36 +176,59 @@
           msg: "",
         }
       },
+      computed: {
+        isEmailValid: function() {
+          return this.email && this.email.length > 0;
+        },
+        isPassword1Valid: function() {
+          if (!this.password1 || this.password1 === '') {
+            this.password1Error = "비밀번호를 입력해주세요."
+            return false
+          }
+          if (!this.checkPw()) {
+            this.password1Error = "8자 이상. 영문/숫자 조합";
+            return false
+          }
+          return true;
+        },
+        isPassword2Valid: function() {
+          return this.password1 === this.password2;
+        },
+      },
       methods: {
-        checkPw: function(password) {
+        checkPw: function() {
+          const password = this.password1;
           let regex = /(?=.*\d)(?=.*[A-Za-z]).{8,}/;
           if (regex.test(password)) return true;
-          else return "8자 이상. 영문/숫자 조합";
+          else return false;
         },
         onSubmit: function() {
+          if (!this.checkPw() || this.resetPassword.password1 !== this.resetPassword.password2) {
+            return;
+          }
           if (!this.termOfService || !this.privacyPolicy) {
             this.error = "서비스 이용약관과 개인정보처리방침에 모두 동의하셔야 가입이 가능합니다."
             return;
           }
+          let self = this;
+          this.isSignupProgressing = true;
           firebase
             .auth()
             .createUserWithEmailAndPassword(this.email, this.password1)
-            .then((credential) => {
-              this.user = credential.user;
+            .then(function(credential) {
+              self.user = credential.user;
               credential.user.sendEmailVerification()
-                .then(() => {
-                  this.error = "";
-                  this.isSucceeded = true;
+                .then(function() {
+                  self.isSucceeded = true;
+                  self.error = "";
                 })
-                .catch((error) => {
-                  this.isSucceeded = true;
-                  this.error = `
-                    인증 메일 전송에 실패하였습니다.\n
-                    고객 센터에 문의해주세요.
-                  `;
+                .catch(function() {
+                  self.isSucceeded = true;
+                  self.error = "인증 메일 전송에 실패하였습니다. 잠시후 다시 시도해주세요.";
                 })
             })
-            .catch((error) => {
+            .catch(function(error) {
+              self.isSignupProgressing = false;
               let message = "";
               if (error.code === "auth/invalid-email")
                 message = "이메일 형태를 확인해주세요.";
@@ -191,28 +236,32 @@
                 message = "이미 사용 중인 이메일입니다.";
               else
                 message = "회원가입에 실패했습니다. 입력하신 내용을 확인해주세요.";
-              this.error = message;
+              self.error = message;
             });
         },
         onClickResend: function() {
-          this.user.sendEmailVerification()
-            .then(() => {
-              this.error = "";
-              this.msg = "전송하였습니다.";
+          let self = this;
+          self.user.sendEmailVerification()
+            .then(function() {
+              self.error = "";
+              self.msg = "전송하였습니다.";
             })
-            .catch((error) => {
-              this.error = `
-                인증 메일 전송에 실패하였습니다.\n
-              `;
+            .catch(function(error) {
+              self.msg = "";
+              self.error = "인증 메일 전송에 실패하였습니다. 잠시후 다시 시도해주세요.";
             })
         },
       },
-      created() {
+      created: function() {
         let config = {
           apiKey: "AIzaSyCXT2nKHukUxynxZ_u_lAn-TLA086SkyxM",
-          // apiKey: "AIzaSyAthUD392Fd9X4wRsszbp686eJs1perU-o",
+          //apiKey: "AIzaSyAthUD392Fd9X4wRsszbp686eJs1perU-o",
         };
         firebase.initializeApp(config);
+      },
+      mounted: function() {
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("q-app").style.display = "block";
       },
       // ...etc
     })
