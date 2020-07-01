@@ -390,6 +390,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #hero .download-btn + .download-btn {
+  margin-top: 10px;
   margin-left: 20px;
 }
 
@@ -398,7 +399,7 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
   }
   #hero .download-btn + .download-btn {
-    margin: 0 10px;
+    margin: 5px 10px;
   }
   #hero .hero-img {
     text-align: center;
