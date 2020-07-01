@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   
-  <title>풀다 - 설문 및 계정인증</title>
+  <title>풀다</title>
 
   <!-- Vendor CSS Files -->
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet" type="text/css">
@@ -18,11 +18,14 @@
 </head>
 
 <body>
-  <div id="q-app">
+  <div id="loading">
+    로딩 중...
+  </div>
+  <div id="q-app" style="display: none;">
     <q-layout view="hHh lpR fFf">
       <q-page-container>
         <q-page
-          v-if="!isSucceeded"
+          v-if="!isSucceeded && mode === 'verifyEmail'"
           class="row justify-center content-center"
           style="background-color: #e1dcd9;"
           padding
@@ -77,10 +80,13 @@
                       mask="date"
                       filled
                       bottom-slots
-                      :rules="[(val) => !!val || '해당 항목을 반드시 작성해야합니다.']"
+                      :error="!answers[1]"
                     >
                       <template v-slot:hint>
                         예) 2020/06/30 , 경험이 없으시다면 "0"을 입력해주세요.
+                      </template>
+                      <template v-slot:error>
+                        해당 항목을 반드시 작성해야합니다.
                       </template>
                     </q-input>
                   </div>
@@ -100,10 +106,13 @@
                       type="number"
                       filled
                       bottom-slots
-                      :rules="[(val) => !!val || '해당 항목을 반드시 작성해야합니다.']"
+                      :error="!answers[2]"
                     >
                       <template v-slot:hint>
                         경험이 없으시다면 "0"을 입력해주세요.
+                      </template>
+                      <template v-slot:error>
+                        해당 항목을 반드시 작성해야합니다.
                       </template>
                     </q-input>
                   </div>
@@ -139,8 +148,13 @@
                       v-model="answers[4]"
                       filled
                       autogrow
-                      :rules="[(val) => !!val || '해당 항목을 반드시 작성해야합니다.']"
-                    ></q-input>
+                      bottom-slots
+                      :error="!answers[4]"
+                    >
+                      <template v-slot:error>
+                        해당 항목을 반드시 작성해야합니다.
+                      </template>
+                    </q-input>
                   </div>
                 </q-card-section>
               </q-card>
@@ -157,10 +171,13 @@
                       type="number"
                       filled
                       bottom-slots
-                      :rules="[(val) => !!val || '해당 항목을 반드시 작성해야합니다.']"
+                      :error="!answers[5]"
                     >
                       <template v-slot:hint>
                         예) 4시간 30분 -> 4.5 / 경험이 없으시다면 "0"을 입력해주세요.
+                      </template>
+                      <template v-slot:error>
+                        해당 항목을 반드시 작성해야합니다.
                       </template>
                     </q-input>
                   </div>
@@ -215,8 +232,13 @@
                       v-model="answers[8]"
                       filled
                       autogrow
-                      :rules="[(val) => !!val || '해당 항목을 반드시 작성해야합니다.']"
-                    ></q-input>
+                      bottom-slots
+                      :error="!answers[8]"
+                    >
+                      <template v-slot:error>
+                        해당 항목을 반드시 작성해야합니다.
+                      </template>
+                    </q-input>
                   </div>
                 </q-card-section>
               </q-card>
@@ -248,8 +270,13 @@
                       v-model="answers[10]"
                       type="number"
                       filled
-                      :rules="[(val) => !!val || '해당 항목을 반드시 작성해야합니다.']"
-                    ></q-input>
+                      bottom-slots
+                      :error="!answers[10]"
+                    >
+                      <template v-slot:error>
+                        해당 항목을 반드시 작성해야합니다.
+                      </template>
+                    </q-input>
                   </div>
                 </q-card-section>
               </q-card>
@@ -266,10 +293,13 @@
                       type="number"
                       filled 
                       bottom-slots
-                      :rules="[(val) => !!val || '해당 항목을 반드시 작성해야합니다.']"
+                      :error="!answers[11]"
                     >
                       <template v-slot:hint>
                         경험이 없으실 경우 "0"을 입력해주세요.
+                      </template>
+                      <template v-slot:error>
+                        해당 항목을 반드시 작성해야합니다.
                       </template>
                     </q-input>
                   </div>
@@ -286,10 +316,13 @@
                       class="width-80"
                       v-model="answers[12]"
                       filled
-                      :rules="[(val) => !!val || '해당 항목을 반드시 작성해야합니다.']"
+                      :error="!answers[12]"
                     >
                       <template v-slot:hint>
                         경험이 없거나 떠오르는 분이 없으시다면 "없음"을 입력해주세요.
+                      </template>
+                      <template v-slot:error>
+                        해당 항목을 반드시 작성해야합니다.
                       </template>
                     </q-input>
                   </div>
@@ -307,8 +340,13 @@
                       v-model="answers[13]"
                       filled
                       autogrow
-                      :rules="[(val) => !!val || '해당 항목을 반드시 작성해야합니다.']"
-                    ></q-input>
+                      bottom-slots
+                      :error="!answers[13]"
+                    >
+                      <template v-slot:error>
+                        해당 항목을 반드시 작성해야합니다.
+                      </template>                 
+                    </q-input>
                   </div>
                 </q-card-section>
               </q-card>
@@ -340,8 +378,13 @@
                       v-model="answers[15]"
                       type="number"
                       filled
-                      :rules="[(val) => !!val || '해당 항목을 반드시 작성해야합니다.']"
-                    ></q-input>
+                      bottom-slots
+                      :error="!answers[15]"
+                    >
+                      <template v-slot:error>
+                        해당 항목을 반드시 작성해야합니다.
+                      </template>                   
+                    </q-input>
                   </div>
                 </q-card-section>
               </q-card>
@@ -380,8 +423,13 @@
                       class="width-80"
                       filled
                       dense
-                      :rules="[(val) => !!val || '해당 항목을 반드시 작성해야합니다.']"
-                    ></q-input>
+                      bottom-slots
+                      :error="!answersEtc[0]"
+                    >
+                      <template v-slot:error>
+                        해당 항목을 반드시 작성해야합니다.
+                      </template>
+                    </q-input>
                   </div>
                 </q-card-section>
               </q-card>
@@ -397,10 +445,13 @@
                       class="width-80"
                       filled
                       bottom-slots
-                      :rules="[(val) => !!val || '해당 항목을 반드시 작성해야합니다.']"
+                      :error="!answers[18]"
                     >
                       <template v-slot:hint>
                         예) 상담심리사 2급 (한국상담심리학회) / 청소년상담사 3급 (국가자격) / 없음
+                      </template>
+                      <template v-slot:error>
+                        해당 항목을 반드시 작성해야합니다.
                       </template>
                     </q-input>
                   </div>
@@ -418,10 +469,13 @@
                       class="width-80"
                       filled
                       bottom-slots
-                      :rules="[(val) => !!val || '해당 항목을 반드시 작성해야합니다.']"
+                      :error="!answers[19]"
                     >
                       <template v-slot:hint>
                         최대 2개까지 적어주세요. 없으실 경우 "없음" 이라고 적어주세요.
+                      </template>
+                      <template v-slot:error>
+                        해당 항목을 반드시 작성해야합니다.
                       </template>
                     </q-input>
                   </div>
@@ -446,8 +500,12 @@
                       class="width-80"
                       filled
                       dense
-                      :rules="[(val) => !!val || '해당 항목을 반드시 작성해야합니다.']"
-                    ></q-input>
+                      :error="!answersEtc[1]"
+                    >
+                      <template v-slot:error>
+                        해당 항목을 반드시 작성해야합니다.
+                      </template>
+                    </q-input>
                   </div>
                 </q-card-section>
               </q-card>
@@ -474,11 +532,9 @@
                   color="poolda-primary"
                   :disable="submitDisable"
                   unelevated
-                ></q-btn>
-                <div v-if="submitDisable">
-                  <q-spinner size="1rem" />
-                  <span style="margin-right:10px;"> 제출하는 중 입니다... </span>
-                </div>
+                >
+                  <div v-if="submitDisable" class="loader"></div>
+                </q-btn>
               </q-card-actions>
             </q-form>
             <div class="q-my-lg text-center">
@@ -487,12 +543,13 @@
           </div>
         </q-page>
         <q-page
-          v-else
+          v-else-if="isSucceeded && mode === 'verifyEmail'"
           class="row justify-center content-center"
+          style="background-color: #e1dcd9;"
           padding
         >
           <div class="text-center">
-            <q-card flat bordered>
+            <q-card flat>
               <q-card-section>
                 <div class="text-h6">환영합니다.</div>
               </q-card-section>
@@ -503,11 +560,101 @@
             </q-card>
           </div>
         </q-page>
+        <q-page
+          v-else-if="!resetPassword.isSucceeded && mode === 'resetPassword'"
+          class="row justify-center content-center"
+          style="background-color: #e1dcd9;"
+          padding
+        >
+          <div class="text-center">
+            <q-card flat>
+              <q-card-section>
+                <div class="text-h6">비밀번호 재설정</div>
+              </q-card-section>
+              <q-card-section class="text-subtitle1">
+                <div class="q-pa-sm" style="width: 300px">
+                  <div v-if="resetPassword.error" class="text-red" style="margin-bottom: 20px;">
+                    {{ resetPassword.error }}
+                  </div>
+                  <div class="q-pb-lg">
+                    <span>아이디(이메일)</span>
+                    <span>{{ email }}</span>
+                  </div>
+                  <q-form class="q-gutter-sm" @submit="onSubmitResetPassword">
+                    <q-input
+                      filled
+                      v-model="resetPassword.password1"
+                      :type="resetPassword.isPwd ? 'password' : 'text'"
+                      label="비밀번호"
+                      hint="8자 이상. 영문/숫자 조합"
+                      lazy-rules
+                      bottom-slots
+                      :error="!isPassword1Valid"
+                    >
+                      <template v-slot:append>
+                        <q-icon
+                          :name="resetPassword.isPwd ? 'visibility_off' : 'visibility'"
+                          class="cursor-pointer"
+                          @click="resetPassword.isPwd = !resetPassword.isPwd"
+                        ></q-icon>
+                      </template>
+                      <template v-slot:error>
+                        {{ resetPassword.password1Error }}
+                      </template>
+                    </q-input>
+                    <q-input
+                      filled
+                      v-model="resetPassword.password2"
+                      :type="resetPassword.isPwd ? 'password' : 'text'"
+                      label="비밀번호 확인"
+                      lazy-rules
+                      bottom-slots
+                      :error="!isPassword2Valid"
+                    >
+                      <template v-slot:error>
+                        비밀번호가 일치하지 않습니다.
+                      </template>
+                    </q-input>
+                    <div>
+                      <q-btn
+                        label="저장"
+                        type="submit"
+                        color="poolda-primary"
+                        unelevated
+                        :disable="resetPassword.isProgressing"
+                      >
+                        <div v-if="resetPassword.isProgressing" class="loader"></div>
+                      </q-btn>
+                    </div>
+                  </q-form>
+                </div>
+              </q-card-section>
+            </q-card>
+          </div>
+        </q-page>
+        <q-page
+          v-else-if="resetPassword.isSucceeded && mode === 'resetPassword'"
+          class="row justify-center content-center"
+          style="background-color: #e1dcd9;"
+          padding
+        >
+          <div class="text-center">
+            <q-card flat>
+              <q-card-section>
+                <div class="text-h6">비밀번호 재설정 완료</div>
+              </q-card-section>
+              <q-card-section class="text-subtitle1">
+                <strong>이제 새 비밀번호로 로그인할 수 있습니다.</strong><br />
+              </q-card-section>
+            </q-card>
+          </div>
+        </q-page>
       </q-page-container>
     </q-layout>
   </div>
 
   <!-- Vendor JS Files -->
+  <script src="https://cdn.jsdelivr.net/npm/quasar@1.12.8/dist/quasar.ie.polyfills.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@^2.0.0/dist/vue.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/quasar@1.12.8/dist/quasar.umd.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
@@ -520,9 +667,10 @@
       */
     new Vue({
       el: '#q-app',
-      data() {
+      data: function() {
         return {
-          urlParams: null,
+          mode: "",
+          actionCode: "",
           isSucceeded: false,
           email: "",
           optionsYorN: [
@@ -583,16 +731,84 @@
           answersEtc: [],
           firebaseAuth: null,
           submitDisable: false,
+          resetPassword: {
+            error: "",
+            password1: "",
+            password1Error: "",
+            password2: "",
+            isProgressing: false,
+            isPwd: true,
+            isSucceeded: false,
+          },
         }
       },
+      computed: {
+        isEmailValid: function() {
+          return this.email && this.email.length > 0;
+        },
+        isPassword1Valid: function() {
+          if (
+            !this.resetPassword.password1 ||
+            this.resetPassword.password1 === ''
+          ) {
+            this.resetPassword.password1Error = "비밀번호를 입력해주세요."
+            return false
+          }
+          if (!this.checkPw()) {
+            this.resetPassword.password1Error = "8자 이상. 영문/숫자 조합";
+            return false
+          }
+          return true;
+        },
+        isPassword2Valid: function() {
+          return this.resetPassword.password1 === this.resetPassword.password2;
+        },
+      },
       methods: {
+        checkPw: function() {
+          const password = this.resetPassword.password1;
+          let regex = /(?=.*\d)(?=.*[A-Za-z]).{8,}/;
+          if (regex.test(password)) return true;
+          else return false;
+        },
+        onSubmitResetPassword: function() {
+          let self = this;
+          self.resetPassword.isProgressing = true;
+          console.log(self.actionCode);
+          self.firebaseAuth.verifyPasswordResetCode(self.actionCode)
+            .then(function(email) {
+              self.firebaseAuth.confirmPasswordReset(self.actionCode, self.resetPassword.password1)
+                .then(function() {
+                  self.resetPassword.isProgressing = false;
+                  self.resetPassword.isSucceeded = true;
+                })
+                .catch(function() {
+                  self.resetPassword.isProgressing = false;
+                  self.resetPassword.error = "저장에 실패했습니다. 다시 시도해주세요.";
+                });
+            })
+            .catch(function(error) {
+              self.resetPassword.isProgressing = false;
+              alert("만료된 페이지입니다. 풀다앱에서 비밀번호 재설정을 다시 시도해주세요.")
+              window.location.replace("https://pooolda.com");
+            });
+        },
         onSubmit: function() {
-          for (let i = 0; i < 20; i++) {
+          for (let i = 0; i < 21; i++) {
             if (!this.answers[i]) {
-              alert(`${i + 1}번째 항목을 입력하지 않았습니다. 확인해주세요.`);
+              alert((i + 1) + "번째 항목을 입력하지 않았습니다. 확인해주세요.");
               return;
             }
           }
+          if (this.answers[17] === "기타" && !this.answersEtc[0]) {
+              alert("18번째 항목을 입력하지 않았습니다. 확인해주세요.");
+              return;
+          }
+          if (this.answers[20] === "기타" && !this.answersEtc[1]) {
+              alert("21번째 항목을 입력하지 않았습니다. 확인해주세요.");
+              return;
+          }
+
           const formData = {
             email: this.email,
             scriptExperience: this.answers[0],
@@ -624,18 +840,24 @@
           formData.formGoogleSheetName = form.dataset.sheet || "responses";
           formData.formGoogleSendEmail = form.dataset.email || "";
 
-          this.submitDisable = true;
+          let self = this;
+          self.submitDisable = true;
           const url = form.action;
           const xhr = new XMLHttpRequest();
           xhr.open("POST", url);
           xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-          xhr.onreadystatechange = () => {
+          xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 405 && self.browser === "ie") {
+              self.verify();
+              console.log("ie 쓰지 마세요... 부탁드립니다 제발...");
+              return;
+            }
             if (xhr.readyState === 4 && xhr.status === 200) {
-              this.verify();
+              self.verify();
             } else if (xhr.readyState === 4 && xhr.status !== 200) {
               alert("설문지 제출에 실패했습니다. 다시 제출해주세요.");
             }
-            this.submitDisable = false;
+            self.submitDisable = false;
           };
           // url encode form data for sending as post data
           var encoded = Object.keys(formData)
@@ -646,36 +868,56 @@
           xhr.send(encoded);
         },
         checkUrl: function() {
-          const actionCode = this.urlParams.get("oobCode");
-          this.firebaseAuth.checkActionCode(actionCode)
-            .then((actionCodeInfo) => {
-              this.email = actionCodeInfo.data.email;
+          let self = this;
+          self.firebaseAuth.checkActionCode(self.actionCode)
+            .then(function(actionCodeInfo) {
+              self.email = actionCodeInfo.data.email;
             })
-            .catch((error) => {
+            .catch(function(error) {
               alert("만료된 페이지입니다. 풀다 홈페이지로 연결됩니다.");
               window.location.replace("https://pooolda.com");
             });
         },
         verify: function() {
-          const actionCode = this.urlParams.get("oobCode");
-          this.firebaseAuth.applyActionCode(actionCode)
-            .then((response) => {
-              this.isSucceeded = true;
+          let self = this;
+          self.firebaseAuth.applyActionCode(self.actionCode)
+            .then(function(response) {
+              self.isSucceeded = true;
             })
-            .catch((error) => {
+            .catch(function(error) {
               alert("만료된 페이지입니다. 풀다 홈페이지로 연결됩니다.");
               window.location.replace("https://pooolda.com");
             });
         },
       },
-      mounted() {
-        this.urlParams = new URLSearchParams(window.location.search);
+      mounted: function() {
+        const browse = navigator.userAgent.toLowerCase(); 
+            
+        if( (navigator.appName == 'Netscape' && browse.indexOf('trident') != -1) || (browse.indexOf("msie") != -1)) {
+          this.browser = "ie";
+        }
+
+        const url = window.location.search;
+        this.mode = getParameterByName("mode", url);
+        this.actionCode = getParameterByName("oobCode", url);
         const config = {
-          apiKey: this.urlParams.get("apiKey"),
+          apiKey: getParameterByName("apiKey", url),
         };
         const app = firebase.initializeApp(config);
         this.firebaseAuth = app.auth();
         this.checkUrl();
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("q-app").style.display = "block";
+
+        function getParameterByName(name, url) {
+          if (!url) url = window.location.href;
+          name = name.replace(/[\[\]]/g, '\\$&');
+          var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+              results = regex.exec(url);
+          if (!results) return null;
+          if (!results[2]) return '';
+          return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
       },
     })
   </script>
