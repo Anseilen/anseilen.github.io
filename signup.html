@@ -203,7 +203,7 @@
           else return false;
         },
         onSubmit: function() {
-          if (!this.checkPw() || this.resetPassword.password1 !== this.resetPassword.password2) {
+          if (!this.checkPw() || this.password1 !== this.password2) {
             return;
           }
           if (!this.termOfService || !this.privacyPolicy) {
