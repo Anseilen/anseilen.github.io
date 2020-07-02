@@ -112,4 +112,13 @@
     easing: "ease-in-out"
   });
 
+  var OSName = "Unknown OS";
+  if (navigator.appVersion.indexOf("Win") != -1) {
+    $("#download-windows").css("display", "block");
+  }
+  if (navigator.appVersion.indexOf("Mac") != -1) {
+    console.log("Mac");
+    $("#download-mac").css("display", "block");
+  }
+
 })(jQuery);

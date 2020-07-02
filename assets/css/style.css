@@ -389,17 +389,20 @@ h1, h2, h3, h4, h5, h6 {
   top: 8.5px;
 }
 
-#hero .download-btn + .download-btn {
+/* #hero .download-btn + .download-btn {
   margin-top: 10px;
   margin-left: 20px;
-}
+} */
 
 @media (max-width: 991px) {
   #hero {
     text-align: center;
   }
-  #hero .download-btn + .download-btn {
+  /* #hero .download-btn + .download-btn {
     margin: 5px 10px;
+  } */
+  #hero #download-btn-group {
+    justify-content: center !important;
   }
   #hero .hero-img {
     text-align: center;
