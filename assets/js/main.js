@@ -113,3 +113,12 @@
   });
 
 })(jQuery);
+
+if (navigator.appVersion.indexOf("Win") != -1) {
+  console.log("windows");
+  document.getElementById("download-windows").style.display = "block";
+}
+if (navigator.appVersion.indexOf("Mac") != -1) {
+  console.log("Mac");
+  document.getElementById("download-mac").style.display = "block";
+}
