@@ -227,13 +227,29 @@ title: 풀다
                 class="icofont-rounded-down icon-show"></i><i class="icofont-rounded-up icon-close"></i></a>
             <div id="accordion-list-1" class="collapse show" data-parent=".accordion-list">
               <ul>
-                <li><i class="icofont-check"></i> 풀다는 한글이나 워드처럼 결과물 파일이 개인 컴퓨터에 저장됩니다. (.poolda 파일) </li>
-                <li><i class="icofont-check"></i> 녹음파일이나 작성하시는 축어록 파일을 서버로 보내거나 저장하지 않습니다. </li>
                 <li>
                   <i class="icofont-check"></i>
-                  예외적으로 음성인식을 사용할시에는 녹음파일을 서버로 전송합니다. <br />
-                  하지만 음성인식이 끝난 이후에 녹음파일과 음성인식 결과를 모두 삭제하여 내담자 개인정보는 서버에 전혀 남지않습니다. <br />
-                  또한, 음성인식이 진행 중이여서 아직 삭제되지 않은 녹음파일에 누구도 접근하지 않습니다.
+                  풀다는 음성인식을 위해 Microsoft Azure Speech-to-Text API를 사용하고 있습니다.
+                </li>
+                <li>
+                  <i class="icofont-check"></i>
+                  풀다는 음성인식을 사용할 때에만 녹음 파일을 서버로 전송합니다. 이 외의 경우에는 녹음파일과 축어록 내용을 서버로 전송하지 않습니다.
+                </li>
+                <li>
+                  <i class="icofont-check"></i>
+                  풀다는 서버로 전송된 녹음 파일을 <strong>일시적으로</strong> 보관하여 음성인식에만 사용합니다. 어떠한 경우에도 다른 용도로 사용하지 않습니다.
+                </li>
+                <li>
+                  <i class="icofont-check"></i>
+                  풀다는 음성인식이 완료되고 음성인식 결과가 사용자 컴퓨터로 전송된 직후 바로 녹음파일과 음성인식 결과를 파기합니다. 내담자의 정보가 있는 어떤 데이터도 남겨두지 않습니다.
+                </li>
+                <li>
+                  <i class="icofont-check"></i>
+                  풀다는 모든 데이터 처리를 자동화된 시스템을 통해 진행합니다. 사용자의 명시적인 허락이 없는한 내부 인원이 임의로 사용자의 데이터(녹음파일, 음성인식 결과)를 열어볼 수 없습니다.
+                </li>
+                <li>
+                  <i class="icofont-check"></i>
+                  풀다팀은 사용자가 전송한 녹음 파일과 음성인식 결과를 인공지능의 학습을 위해 사용하지 않습니다.
                 </li>
               </ul>
             </div>
