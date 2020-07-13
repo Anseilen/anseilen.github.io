@@ -34,7 +34,9 @@
   margin-top: 15px;
 }
 
-.post .accordion-list a {
+.post .accordion-list .title {
+  color: #32435f;
+  text-decoration: none;
   display: block;
   position: relative;
   font-size: 16px;
@@ -70,7 +72,8 @@
 }
 
 .post .accordion-list a {
-  color: #32435f;
+  color: blue;
+  text-decoration: underline;
 }
 
 .post .accordion-list a.collapsed {

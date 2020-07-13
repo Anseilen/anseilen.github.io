@@ -12,14 +12,14 @@ layout: notice
         <ul>
           <li style="min-height: calc(100vh - 216px);">
             <i class="icofont-simple-right icon-help"></i>
-            <a>{{ page.title }}</a>
+            <a class="title">{{ page.title }}</a>
             <div class="content collapse show mt-4 pb-5" data-parent=".accordion-list">
             {{ content }}
             </div>
             <div style="position: absolute; bottom: 20px;">
-              <a role="button" class="btn btn-outline-dark" href="/notices" style="width: 100px;">
+              <button type="button" class="btn btn-outline-dark" onclick="location.href = '/notices'" style="width: 100px;">
               목록
-              </a>
+              </button>
             </div>
           </li>
         </ul>
