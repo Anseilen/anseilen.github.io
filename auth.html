@@ -169,6 +169,7 @@
                       class="width-80"
                       v-model="answers[5]"
                       type="number"
+                      step="0.5"
                       filled
                       bottom-slots
                       :error="!answers[5]"
@@ -369,22 +370,16 @@
               <q-card flat>
                 <q-card-section>
                   <div class="q-mb-md row">
-                    16. 출생년도를 알려주세요.
+                    16. 연령대가 어떻게 되시나요? 
                     <span class="text-red">*</span>
                   </div>
                   <div class="row">
-                    <q-input
-                      class="width-80"
+                    <q-option-group
                       v-model="answers[15]"
-                      type="number"
-                      filled
-                      bottom-slots
-                      :error="!answers[15]"
-                    >
-                      <template v-slot:error>
-                        해당 항목을 반드시 작성해야합니다.
-                      </template>                   
-                    </q-input>
+                      type="radio"
+                      color="poolda-primary"
+                      :options="optionsAge"
+                    ></q-option-group>
                   </div>
                 </q-card-section>
               </q-card>
@@ -700,6 +695,13 @@
             { label: "여성", value: "여성" },
             { label: "남성", value: "남성" },
             { label: "응답하지 않음", value: "응답하지 않음"},
+          ],
+          optionsAge: [
+            { label: "20대", value: "20대" },
+            { label: "30대", value: "30대" },
+            { label: "40대", value: "40대" },
+            { label: "50대", value: "50대" },
+            { label: "60대 이상", value: "60대 이상" },
           ],
           optionsEdu: [
             { label: "고등학교 졸업", value: "고등학교 졸업" },
