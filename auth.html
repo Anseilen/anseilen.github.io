@@ -317,13 +317,10 @@
                       class="width-80"
                       v-model="answers[12]"
                       filled
-                      :error="!answers[12]"
+                      bottom-slots
                     >
                       <template v-slot:hint>
-                        경험이 없거나 떠오르는 분이 없으시다면 "없음"을 입력해주세요.
-                      </template>
-                      <template v-slot:error>
-                        해당 항목을 반드시 작성해야합니다.
+                        추후 슈퍼비전과 관련된 서비스 제공을 위한 기초 자료로 사용됩니다. 응답을 원치 않으시는 분들은 15번으로 문항으로 넘어가주세요 :)
                       </template>
                     </q-input>
                   </div>
@@ -342,11 +339,10 @@
                       filled
                       autogrow
                       bottom-slots
-                      :error="!answers[13]"
                     >
-                      <template v-slot:error>
-                        해당 항목을 반드시 작성해야합니다.
-                      </template>                 
+                      <template v-slot:hint>
+                        추후 슈퍼비전과 관련된 서비스 제공을 위한 기초 자료로 사용됩니다. 응답을 원치 않으시는 분들은 15번으로 문항으로 넘어가주세요 :)
+                      </template>
                     </q-input>
                   </div>
                 </q-card-section>
@@ -800,6 +796,7 @@
         },
         onSubmit: function() {
           for (let i = 0; i < 21; i++) {
+            if (i === 12 || i === 13) continue;
             if (!this.answers[i]) {
               alert((i + 1) + "번째 항목을 입력하지 않았습니다. 확인해주세요.");
               return;
