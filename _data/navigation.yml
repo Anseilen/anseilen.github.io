@@ -3,3 +3,6 @@
 - name: Notice
   link: /notice.html
   url: /notice
+- name: Signin
+  link: /signin.html
+  url: /signin

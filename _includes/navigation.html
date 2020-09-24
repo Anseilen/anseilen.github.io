@@ -9,14 +9,16 @@
     </div>
 
     <nav class="nav-menu d-none d-lg-block">
-      {% if page.name == "index.html" %}
+      {% if page.name == "index.html" or "signin.html" %}
       <ul>
-        <li class="active"><a href="#header">홈</a></li>
-        <li><a href="#features">기능</a></li>
-        <li><a href="#faq">자주 묻는 질문</a></li>
-        <li><a href="#contact">고객센터</a></li>
+        <li class="active"><a href="/#header">홈</a></li>
+        <li><a href="/#features">기능</a></li>
+        <li><a href="/#faq">자주 묻는 질문</a></li>
+        <li><a href="/#contact">고객센터</a></li>
 
         <li class="get-started"><a href="/">다운받기</a></li>
+        <li id="nav-login__btn" class="get-started"><a href="/signin">로그인</a></li>
+        <li id="nav-logout__btn" class="get-started" style="display: none"><a href="/">로그아웃</a></li>
       </ul>
       {% else %}
       <ul>

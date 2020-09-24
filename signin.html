@@ -1,0 +1,36 @@
+---
+layout: default
+title: 로그인 - 풀다 Poolda
+date: 2020-09-24 16:11:00
+lastmod: 2020-09-24 16:11:00
+---
+
+<main id="signin" class="d-flex align-items-center">
+  <div class="container">
+    <div style="max-width:500px; margin:auto;">
+      <div style="padding:50px 100px;">
+        <h2 style="text-align:center;">로그인</h2>
+        <h6 id="signin-errorMessage" class="text-center text-danger"></h6> 
+        <form style="margin-top:20px;">
+          <div class="form-group">
+            <label>이메일</label>
+            <input type="email" class="form-control" id="inputEmail">
+          </div>
+          <div class="form-group">
+            <label>비밀번호</label>
+            <input type="password" class="form-control" id="inputPassword">
+          </div>
+          <div style="text-align: center; margin-top:30px;">
+            <button id="signin-form__submit" type="submit" class="btn bg-poolda-primary" style="width:100%; color: #ffffff;">로그인</button>
+          </div>
+        </form>
+        <div style="margin-top: 20px; text-align: center;">
+          <a href="">비밀번호 찾기</a> |
+          <a href="">회원가입</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="/assets/js/signin.js"></script>

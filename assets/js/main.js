@@ -114,16 +114,26 @@
 
 })(jQuery);
 
-const appVersion = navigator.appVersion;
-if (appVersion.indexOf("Win") != -1 && (appVersion.indexOf("x64") != -1 || appVersion.indexOf("Win64") != -1 || appVersion.indexOf("WOW64") != -1)) {
-  console.log("windows 64");
-  document.getElementById("download-windows-64").style.display = "block";
-} else if (appVersion.indexOf("Win") != -1) {
-  console.log("windows 32");
-  document.getElementById("download-windows-32").style.display = "block";
-}
+const config = {
+  apiKey: "AIzaSyCXT2nKHukUxynxZ_u_lAn-TLA086SkyxM",
+  //apiKey: "AIzaSyAthUD392Fd9X4wRsszbp686eJs1perU-o",
+};
+var app = firebase.initializeApp(config);
+var firebaseAuth = app.auth();
 
-if (navigator.appVersion.indexOf("Mac") != -1) {
-  console.log("Mac");
-  document.getElementById("download-mac").style.display = "block";
-}
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    // User is signed in.
+    $("#nav-login__btn").css({display: "none"});
+    $("#nav-logout__btn").css({display: "block"});
+  } else {
+    // No user is signed in.
+    $("#nav-login__btn").css({display: "block"});
+    $("#nav-logout__btn").css({display: "none"});
+  }
+});
+
+$(document).on("click", "#nav-logout__btn", function(event){
+  firebaseAuth.signOut();
+  window.location.replace("/");
+})
