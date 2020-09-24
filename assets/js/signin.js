@@ -5,6 +5,8 @@ $(document).on("click", "#signin-form__submit", function(event){
   firebaseAuth.signInWithEmailAndPassword(email,password)
   .then(function(){
     window.location.href = "/";
+    $("#nav-login__btn").css({display: "none"});
+    $("#nav-logout__btn").css({display: "block"});
   })
   .catch(function(error){
     var errorCode = error.code;
