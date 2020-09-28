@@ -114,11 +114,9 @@
 
 })(jQuery);
 
-const config = {
-  apiKey: "AIzaSyCXT2nKHukUxynxZ_u_lAn-TLA086SkyxM",
-  //apiKey: "AIzaSyAthUD392Fd9X4wRsszbp686eJs1perU-o",
-};
-var app = firebase.initializeApp(config);
+var app;
+if(!firebase.app.length) app = firebase.initializeApp();
+else app = firebase.app();
 var firebaseAuth = app.auth();
 
 firebase.auth().onAuthStateChanged(function(user) {
