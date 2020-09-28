@@ -1,3 +1,5 @@
+if(firebase.auth().currentUser) window.location.replace("/");
+
 $(document).on("click", "#signin-form__submit", function(event){
   event.preventDefault();
   const email = $("#inputEmail").val();

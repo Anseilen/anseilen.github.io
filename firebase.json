@@ -13,6 +13,10 @@
     {
       "source": "/notices",
       "destination": "/notices.html"
+    },
+    {
+      "source": "/mypage",
+      "destination": "/mypage.html"
     }
   ]
   }
