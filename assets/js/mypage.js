@@ -11,4 +11,9 @@ myPage.prototype.logOut = function() {
   window.location.replace("/");
 }
 
+myPage.prototype.getCoin = function() {
+  var url = '/api/coin';
+  
+}
+
 window.mp = new myPage();
