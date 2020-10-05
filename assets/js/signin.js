@@ -4,7 +4,7 @@ $(document).on("click", "#signin-form__submit", function(event){
   event.preventDefault();
   const email = $("#inputEmail").val();
   const password = $("#inputPassword").val();
-  firebaseAuth.signInWithEmailAndPassword(email,password)
+  firebase.auth().signInWithEmailAndPassword(email,password)
   .then(function(){
     window.location.href = "/";
     $("#nav-login__btn").css({display: "none"});

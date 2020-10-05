@@ -64,3 +64,21 @@
     }
   }
 }
+
+@media (max-width: 575px) {
+  #mypage {
+    padding: 100px 0;
+  }
+  .account-info {
+    flex-direction: column !important;
+  }
+  .account-info__item {
+    margin-bottom: 1rem;
+  }
+  .account-info__item:last-child {
+    margin-bottom: 0px;
+  }
+  .tab-charge {
+    padding: 50px 10px !important;
+  }
+}

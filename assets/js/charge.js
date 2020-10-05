@@ -1,8 +1,7 @@
 $(document).on("click", "#nav-logout__btn", function(event){
-  firebaseAuth.signOut();
+  firebase.auth().signOut();
   window.location.replace("/");
 })
-console.log($("#nav-logout__btn"))
 
 $("tbody input").each((i,item) => {
   if($(item).is(":checked")) {
