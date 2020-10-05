@@ -123,5 +123,5 @@
 
 
 $(document).on("click", "#nav-mypage__btn", function(event){
-  window.location.replace("/mypage");
+  window.location.replace("/charge");
 })

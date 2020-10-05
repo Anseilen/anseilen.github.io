@@ -1,26 +1,30 @@
-$(document).on("click", "#nav-logout__btn", function(event){
-  firebase.auth().signOut();
-  window.location.replace("/");
-})
+function chargeSection() {
+  $(function() {
+    this.$priceInput = $("tbody input");
+    this.$priceInputRadio = $("tbody input:radio");
+    this.$chargeButton = $("#charge-btn");
 
-$("tbody input").each((i,item) => {
-  if($(item).is(":checked")) {
-    setPrice(item.value);
-  }
-});
-function setPrice(price) {
+    this.$priceInput.each(function(i, item) {
+      if($(item).is(':checked')) {
+        this.setPrice(item.value);
+      }
+    }.bind(this));
+    this.$priceInputRadio.on('change', function(event) {
+      this.setPrice(event.target.value);
+    }.bind(this));
+    this.$chargeButton.on('click', this.charge.bind(this));
+  }.bind(this));
+}
+
+chargeSection.prototype.setPrice = function(price) {
   if(price) {
     $("#charge-btn").text(`${price.slice(0,-3) + ',' + price.slice(-3)}원 결제하기`);
   } else {
     $("#charge-btn").text(`결제하기`);
-  }
+  } 
 }
 
-$(document).on("change", "tbody input:radio", function(event){
-  setPrice(event.target.value);
-})
-
-$(document).on("click", "#charge-btn", function(event){
+chargeSection.prototype.charge = function(event) {
   var checkedPrice;
   var checkedMethod;
   $("tbody input").each((i, item) => {
@@ -50,6 +54,7 @@ $(document).on("click", "#charge-btn", function(event){
     }
     alert(msg);
 });
-})
+}
 
+window.ch = new chargeSection();
 
