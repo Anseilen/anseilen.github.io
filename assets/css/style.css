@@ -811,6 +811,10 @@ section {
   position: relative;
 }
 
+#pricing-faq .accordion-list {
+  background-color: rgba(225, 220, 217, 0.31);
+}
+
 .faq .accordion-list a {
   display: block;
   position: relative;
