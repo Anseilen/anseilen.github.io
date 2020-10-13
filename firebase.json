@@ -17,6 +17,10 @@
     {
       "source": "/auth",
       "destination": "/auth.html"
+    },
+    {
+      "source": "/pricing",
+      "destination": "/pricing.html"
     }
   ]
   }
