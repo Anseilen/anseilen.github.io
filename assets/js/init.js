@@ -1,15 +1,13 @@
 !(function($){
-
   firebase.auth().onAuthStateChanged(function(user) {
+    $('#nav-account__btn a').remove()
     if (user) {
       // User is signed in.
-      $("#nav-login__btn").css({display: "none"});
-      $("#nav-mypage__btn").css({display: "block"});
+      $('#nav-account__btn').append('<a class="get-started" href="/charge">마이페이지</a>')
       if(window.location.pathname.match("signin")) window.location.replace("/");
     } else {
+      $('#nav-account__btn').append('<a class="get-started" href="/signin">로그인</a>')
       // No user is signed in.
-      $("#nav-login__btn").css({display: "block"});
-      $("#nav-mypage__btn").css({display: "none"});
       if(window.location.pathname.match("mypage")) window.location.replace("/signin");
     }
   });
