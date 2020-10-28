@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   
-  <title>풀다</title>
+  <title>심풀</title>
 
   <!-- Vendor CSS Files -->
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet" type="text/css">
@@ -41,11 +41,11 @@
               <q-card flat>
                 <q-card-section>
                   안녕하세요?<br />
-                  풀다 베타테스트에 참여해 주셔서 감사드립니다.<br />
-                  풀다는 상담현장에 계시는 선생님들이 보다 편하고 빠르게 축어록을 작성하실 수 있도록 돕는 서비스입니다.<br />
-                  이를 통해 풀다는 상담사 선생님들의 수련에 대한 접근성이 더 높아지기를 기대합니다.<br />
+                  심풀 베타테스트에 참여해 주셔서 감사드립니다.<br />
+                  심풀은 상담현장에 계시는 선생님들이 보다 편하고 빠르게 축어록을 작성하실 수 있도록 돕는 서비스입니다.<br />
+                  이를 통해 심풀은 상담사 선생님들의 수련에 대한 접근성이 더 높아지기를 기대합니다.<br />
                   또한 수련을 통한 선생님들의 성장이 곧 내담자들에게 긍정적인 영향으로 흘러갈것을 믿습니다.<br />
-                  상담사 선생님들을 풀다가 응원합니다!<br /><br />
+                  상담사 선생님들을 심풀이 응원합니다!<br /><br />
                   설문을 제출하시면 인증이 완료됩니다.<br /><br />
                   감사합니다 :)<br /><br />
                   <span class="text-red">* 필수항목</span>
@@ -475,7 +475,7 @@
               <q-card flat>
                 <q-card-section>
                   <div class="q-mb-md">
-                    21. 풀다를 어떻게 알게 되셨나요?
+                    21. 심풀을 어떻게 알게 되셨나요?
                     <span class="text-red">*</span>
                   </div>
                   <div>
@@ -503,7 +503,7 @@
               <q-card flat>
                 <q-card-section>
                   <div class="q-mb-md row">
-                    풀다팀에게 전하고 싶은 이야기를 남겨주세요! 
+                    심풀팀에게 전하고 싶은 이야기를 남겨주세요! 
                   </div>
                   <div class="row">
                     <q-input
@@ -529,7 +529,7 @@
               </q-card-actions>
             </q-form>
             <div class="q-my-lg text-center">
-              풀다 베타 테스터 설문지
+              심풀 베타 테스터 설문지
             </div>
           </div>
         </q-page>
@@ -546,7 +546,7 @@
               </q-card-section>
               <q-card-section class="text-subtitle1">
                 <strong>인증되었습니다. 이제 로그인하실 수 있습니다.</strong><br />
-                풀다 베타 테스트에 참여해주셔서 감사합니다.
+                심풀 베타 테스트에 참여해주셔서 감사합니다.
               </q-card-section>
             </q-card>
           </div>
@@ -790,8 +790,8 @@
             })
             .catch(function(error) {
               self.resetPassword.isProgressing = false;
-              alert("만료된 페이지입니다. 풀다앱에서 비밀번호 재설정을 다시 시도해주세요.")
-              window.location.replace("https://pooolda.com");
+              alert("만료된 페이지입니다. 심풀앱에서 비밀번호 재설정을 다시 시도해주세요.")
+              window.location.replace("https://sympool.co.kr");
             });
         },
         onSubmit: function() {
@@ -876,8 +876,8 @@
               self.email = actionCodeInfo.data.email;
             })
             .catch(function(error) {
-              alert("만료된 페이지입니다. 풀다 홈페이지로 연결됩니다.");
-              window.location.replace("https://pooolda.com");
+              alert("만료된 페이지입니다. 심풀 홈페이지로 연결됩니다.");
+              window.location.replace("https://sympool.co.kr");
             });
         },
         verify: function() {
@@ -887,8 +887,8 @@
               self.isSucceeded = true;
             })
             .catch(function(error) {
-              alert("만료된 페이지입니다. 풀다 홈페이지로 연결됩니다.");
-              window.location.replace("https://pooolda.com");
+              alert("만료된 페이지입니다. 심풀 홈페이지로 연결됩니다.");
+              window.location.replace("https://sympool.co.kr");
             });
         },
       },

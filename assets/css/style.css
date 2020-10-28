@@ -6,6 +6,10 @@
 */
 @import url(https://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
+/* sympool dark "RUSTY HEART": #9f4039 */
+/* sympool medium "TAWNY ORANGE": #d17e70 */
+/* sympool light "RICE PUDDING": #feeee3 */
+/* poolda primary: #a67f78 */
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
@@ -55,6 +59,11 @@ h1, h2, h3, h4, h5, h6 {
   color: #fff;
   background: #748ec6;
   transition: background 0.2s ease-in-out;
+}
+
+.card-text {
+  text-indent: -1em;
+  margin-left: 2em;
 }
 
 /*--------------------------------------------------------------
@@ -812,6 +821,10 @@ section {
   background: #fff;
   border-radius: 4px;
   position: relative;
+}
+
+#pricing-faq .accordion-list {
+  background-color: rgba(225, 220, 217, 0.31);
 }
 
 .faq .accordion-list a {

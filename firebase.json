@@ -26,6 +26,10 @@
       {
         "source": "/useList",
         "destination": "/useList.html"
+      },
+      {
+        "source": "/pricing",
+        "destination": "/pricing.html"
       }
     ]
   },
