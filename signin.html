@@ -13,7 +13,7 @@ lastmod: 2020-09-24 16:11:00
         <h6 id="signin-errorMessage" class="text-center text-danger"></h6> 
         <form style="margin-top:20px;">
           <div class="form-group">
-            <label>이메일</label>
+            <label>아이디(이메일)</label>
             <input type="email" class="form-control" id="inputEmail">
           </div>
           <div class="form-group">
@@ -25,12 +25,35 @@ lastmod: 2020-09-24 16:11:00
           </div>
         </form>
         <div style="margin-top: 20px; text-align: center;">
-          <a href="">비밀번호 찾기</a> |
+          <a href="" data-toggle="modal" data-target="#passwordForgetModal">비밀번호 찾기</a> |
           <a href="">회원가입</a>
         </div>
       </div>
     </div>
   </div>
 </main>
+
+<div class="modal" id="passwordForgetModal" tabindex="-1" role="dialog" aria-labelledby="passwordForgetCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content" style="width:450px">
+      <div class="modal-body" style="text-align:center">
+        <h5 style="margin:20px;">비밀번호 찾기</h5>
+        <p> 아이디(이메일)을 입력해주세요. <br />
+        입력하신 이메일로 비밀번호 재설정 링크를 전송합니다.
+        </p>
+        <h6 id="passwordforget-errorMessage" class="text-center text-danger"></h6>
+        <form id="passwordforget-form" style="margin: 20px; margin-bottom:0px; text-align:left;">
+          <div class="form-group">
+            <label>아이디(이메일)</label>
+            <input type="email" class="form-control" id="passwordForgetEmail">
+          </div>
+          <div style="margin-top: 30px; text-align:center">
+            <button id="passwordforget-form__submit" type="submit" class="btn bg-poolda-primary" style="color:#ffffff; width: 30%">전송</div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script src="/assets/js/signin.js"></script>

@@ -13,7 +13,6 @@ $(document).on("click", "#signin-form__submit", function(event){
   .catch(function(error){
     var errorCode = error.code;
     let errorMessage = error.message;
-    console.log(errorCode);
     if (errorCode === "auth/network-request-failed") {
       errorMessage = "네트워크가 불안정 합니다. 잠시후 다시 시도해주세요."
     } else if(errorCode === "auth/too-many-requests") {
@@ -30,3 +29,33 @@ $(document).on("click", "#signin-form__submit", function(event){
     $("#signin-errorMessage").text(errorMessage);
   })
 })
+
+$(document).on("click", "#passwordforget-form__submit", function(event){
+  event.preventDefault();
+  const email = $("#passwordForgetEmail").val();
+  firebase.auth().sendPasswordResetEmail(email)
+  .then(function(){
+    $("#passwordforget-errorMessage").text('');
+    $("#passwordforget-form").css({display: "none"})
+    $(".modal-body").append('<h6 class="text-success">메일을 전송했습니다. 메일함을 확인해주세요</h6>')
+  })
+  .catch(function(error){
+    var errorCode = error.code;
+    let errorMessage = error.message;
+    if (errorCode === "auth/network-request-failed") {
+      errorMessage = "네트워크가 불안정 합니다. 잠시후 다시 시도해주세요."
+    } else if(errorCode === "auth/too-many-requests") {
+      errorMessage = "너무 많이 시도 했습니다. 잠시후 다시 시도해주세요."
+    } else if(errorCode === "auth/user-disabled") {
+      errorMessage = "계정이 사용 정지되었습니다. 고객센터로 문의해주세요."
+    } else if(errorCode === "auth/user-not-found") {
+      errorMessage = "사용자를 찾을 수 없습니다. 이메일을 확인해주세요."
+    } else if(errorCode === "auth/wrong-password") {
+      errorMessage = "비밀번호가 잘못되었습니다."
+    } else if(errorCode === "auth/invalid-email") {
+      errorMessage = "적합하지 않은 이메일입니다."
+    };
+    $("#passwordforget-errorMessage").text(errorMessage);
+  })
+})
+
