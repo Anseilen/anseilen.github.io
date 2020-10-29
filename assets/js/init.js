@@ -8,7 +8,10 @@
     } else {
       $('#nav-account__btn').append('<a class="get-started" href="/signin">로그인</a>')
       // No user is signed in.
-      if(window.location.pathname.match("mypage")) window.location.replace("/signin");
+      if (window.location.pathname.match("/\/$/")) return;
+      else if(window.location.pathname.match("charge")) window.location.replace("/signin");
+      else if(window.location.pathname.match("chaList")) window.location.replace("/signin");
+      else if(window.location.pathname.match("useList")) window.location.replace("/signin");
     }
   });
 

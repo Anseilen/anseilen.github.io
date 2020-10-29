@@ -11,11 +11,11 @@ lastmod: 2020-10-28 17:13:00
       <div class="signup-box">
         <h2 style="text-align:center;">회원가입</h2>
         <h6 id="signup-errorMessage" class="text-center text-danger"></h6>
-        <form style="margin-top:30px;">
+        <form id="signup-form" style="margin-top:30px;">
           <div class="form-group row">
             <label class="col-sm-3 col-form-label">아이디*<br/>(이메일)</label>
             <div class="col-sm-9">
-              <input type="email" class="form-control" id="inputEmail" placeholder="example@example.com">
+              <input type="email" class="form-control" id="inputEmail" placeholder="example@example.com" required>
               <div style="margin-top:5px; font-size:0.8rem">
                 작성해주신 이메일로 인증 요구 메일이 발송됩니다.
               </div>
@@ -24,19 +24,19 @@ lastmod: 2020-10-28 17:13:00
           <div class="form-group row">
             <label class="col-sm-3 col-form-label">비밀번호*</label>
             <div class="col-sm-9">
-              <input type="password" class="form-control" id="inputPassword1" placeholder="비밀번호">
+              <input type="password" class="form-control" id="inputPassword1" placeholder="비밀번호" required>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-3 col-form-label">비밀번호 확인*</label>
             <div class="col-sm-9">
-              <input type="password" class="form-control" id="inputPassword2" placeholder="비밀번호 확인">
+              <input type="password" class="form-control" id="inputPassword2" placeholder="비밀번호 확인" required>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-3 col-form-label">핸드폰*</label>
             <div class="col-sm-9">
-              <input class="form-control" id="inputPhone" placeholder="'-'는 제외" style="width:150px;">
+              <input class="form-control" id="inputPhone" placeholder="'-'는 제외" style="width:150px;" required>
               <div style="margin-top:5px; font-size:0.8rem">
                 문의대응을 위한 사항입니다. 다른 용도로 사용되지 않습니다.
               </div>
@@ -46,13 +46,13 @@ lastmod: 2020-10-28 17:13:00
             <label class="col-sm-3 ">성별*</label>
             <div class="col-sm-9">
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="gederRadios" id="genderRadioMale" value="male">
+                <input class="form-check-input" type="radio" name="genderRadios" id="genderRadioMale" value="male" required>
                 <label class="form-check-label" for="genderRadioMale">
                   남성
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="gederRadios" id="genderRadioFemale" value="female">
+                <input class="form-check-input" type="radio" name="genderRadios" id="genderRadioFemale" value="female">
                 <label class="form-check-label" for="genderRadioFemale">
                   여성
                 </label>
@@ -63,7 +63,7 @@ lastmod: 2020-10-28 17:13:00
             <label class="col-sm-3 col-form-label">가입경로*</label>
             <div class="col-sm-9">
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="funnelRadios" id="funnelRadio1" value="recommendation">
+                <input class="form-check-input" type="radio" name="funnelRadios" id="funnelRadio1" value="recommend" required>
                 <label class="form-check-label" for="funnelRadio1">
                   지인 추천
                 </label>
@@ -81,14 +81,14 @@ lastmod: 2020-10-28 17:13:00
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="funnelRadios" id="funnelRadio3" value="cafe">
-                <label class="form-check-label" for="funnelRadio3">
+                <input class="form-check-input" type="radio" name="funnelRadios" id="funnelRadio4" value="youtube">
+                <label class="form-check-label" for="funnelRadio4">
                   유튜브
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="funnelRadios" id="funnelRadio4" value="other">
-                <label class="form-check-label" for="funnelRadio4">
+                <input class="form-check-input" type="radio" name="funnelRadios" id="funnelRadio5" value="other">
+                <label class="form-check-label" for="funnelRadio5">
                   기타
                 </label>
               </div>
@@ -98,19 +98,19 @@ lastmod: 2020-10-28 17:13:00
             <label class="col-sm-3 col-form-label">이용약관 동의*</label>
             <div class="col-sm-9">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="policyCheckboxes" id="usageCheckbox" value="true">
+                <input class="form-check-input" type="checkbox" name="policyCheckboxes" id="usageCheckbox" value="true" required>
                 <label class="form-check-label" for="usageCheckbox">
-                  <a href="https://storage.googleapis.com/sympool-online-assets/pdf/terms_of_service.pdf">서비스 이용약관(필수)</a>
+                  <a href="https://storage.googleapis.com/sympool-online-assets/pdf/terms_of_service.pdf" target="_blank">서비스 이용약관(필수)</a>
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="policyCheckboxes" id="privacyCheckbox" value="true">
+                <input class="form-check-input" type="checkbox" name="policyCheckboxes" id="privacyCheckbox" value="true" required>
                 <label class="form-check-label" for="privacyCheckbox">
-                  <a href="https://storage.googleapis.com/sympool-online-assets/pdf/privacy_policy.pdf">개인정보 보호정책(필수)</a>
+                  <a href="https://storage.googleapis.com/sympool-online-assets/pdf/privacy_policy.pdf" target="_blank">개인정보 보호정책(필수)</a>
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="policyCheckboxes" id="ageCheckbox" value="true">
+                <input class="form-check-input" type="checkbox" name="policyCheckboxes" id="ageCheckbox" value="true" required>
                 <label class="form-check-label" for="ageCheckbox">
                   본인은 만 14세 이상입니다.(필수)
                 </label>
@@ -128,3 +128,5 @@ lastmod: 2020-10-28 17:13:00
     </div>
   </div>
 </main> 
+
+<script src="/assets/js/signup.js"></script>
