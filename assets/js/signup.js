@@ -26,9 +26,10 @@ signUp.prototype.submit= function(event) {
   requestBody.phone = $("#inputPhone").val();
   requestBody.gender = $("#signup-form input[name=genderRadios]:checked").val();
   requestBody.funnel = $("#signup-form input[name=funnelRadios]:checked").val();
-  console.log(requestBody)
   firebase.auth().createUserWithEmailAndPassword(email, password)
   .then(function(credential) {
+    $('#signup-form__submit').attr('disabled',true);
+    $('#signup-form__submit__spinner').css('display','inline-block');
     const user = credential.user;
     user.sendEmailVerification()
     firebase.auth().currentUser.getIdToken().then(function(token){
@@ -40,7 +41,6 @@ signUp.prototype.submit= function(event) {
         data: JSON.stringify(requestBody),
         beforeSend: function(xhr){ xhr.setRequestHeader('Authorization', 'Bearer '+ token)}
       }
-      console.log('Send create Account')
       return $.ajax(request).catch(function(error){
         throw new Error('Request create account error:' + error)
       })
@@ -54,7 +54,7 @@ signUp.prototype.submit= function(event) {
       alert("인증메일이 전송되었습니다. 메일을 확인해주세요.")
     })
     .catch(function(){
-      console.log("error")
+      console.error("error")
       firebase.auth().signOut().then(function(){
         window.location.replace("/");
       })
@@ -85,7 +85,6 @@ signUp.prototype.createProfile = function(requestBody, token){
     data: JSON.stringify(requestBody),
     beforeSend: function(xhr){ xhr.setRequestHeader('Authorization', 'Bearer '+token)}
   }
-  console.log('Send create Account')
   return $.ajax(request).catch(function(error){
     throw new Error('Request create account error:' + error)
   })

@@ -18,7 +18,7 @@
         <li><a href="/pricing">요금제</a></li>
 
         <li class="get-started"><a href="/" style="margin: 0;">다운받기</a></li>
-        <li id="nav-account__btn" class="get-started">
+        <li id="nav-account__btn" class="get-started nav-account__btn">
           <a>
             <div class="spinner-border spinner-border-sm" role="status">
               <span class="sr-only">Loading...</span>
@@ -29,6 +29,13 @@
       {% else %}
       <ul>
         <li class="get-started"><a href="/">다운받기</a></li>
+        <li id="nav-account__btn" class="get-started">
+          <a>
+            <div class="spinner-border spinner-border-sm" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </a>
+        </li>
       </ul>
       {% endif %}
     </nav><!-- .nav-menu -->

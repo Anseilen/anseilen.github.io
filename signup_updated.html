@@ -118,7 +118,12 @@ lastmod: 2020-10-28 17:13:00
             </div>
           </div>
           <div style="text-align: center; margin-top:30px;">
-            <button id="signup-form__submit" type="submit" class="btn bg-poolda-primary" style="width:100%; color: #ffffff;">인증메일 보내기</button>
+            <button id="signup-form__submit" type="submit" class="btn bg-poolda-primary" style="width:100%; color: #ffffff;">
+              <span>인증메일 보내기</span>
+              <div id="signup-form__submit__spinner" class="spinner-border spinner-border-sm" role="status" style="display:none">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </button>
           </div>
         </form>
         <div style="margin-top: 20px; text-align: center; font-size:0.8rem">

@@ -38,6 +38,10 @@
       {
         "source": "/signup",
         "destination": "/signup_updated.html"
+      },
+      {
+        "source": "/auth",
+        "destination": "/auth_updated.html"
       }
     ]
   },

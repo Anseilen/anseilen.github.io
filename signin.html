@@ -21,7 +21,12 @@ lastmod: 2020-09-24 16:11:00
             <input type="password" class="form-control" id="inputPassword">
           </div>
           <div style="text-align: center; margin-top:30px;">
-            <button id="signin-form__submit" type="submit" class="btn bg-poolda-primary" style="width:100%; color: #ffffff;">로그인</button>
+            <button id="signin-form__submit" type="submit" class="btn bg-poolda-primary" style="width:100%; color: #ffffff;">
+              <span>로그인</span>
+              <div id="signin-form__submit__spinner" class="spinner-border spinner-border-sm" role="status" style="display:none">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </button>
           </div>
         </form>
         <div style="margin-top: 20px; text-align: center;">

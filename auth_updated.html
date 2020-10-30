@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+  <title>심풀</title>
+
+  <!-- Vendor CSS Files -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet" type="text/css">
+  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/assets/css/style.css" rel="stylesheet">
+  <link href="/assets/css/styles.css" rel="stylesheet">
+
+</head>
+<body>
+  <!-- Vendor JS Files -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.12.1/polyfill.min.js" integrity="sha512-uzOpZ74myvXTYZ+mXUsPhDF+/iL/n32GDxdryI2SJronkEyKC8FBFRLiBQ7l7U/PTYebDbgTtbqTa6/vGtU23A==" crossorigin="anonymous"></script>
+  <script src="/assets/vendor/jquery/jquery.min.js"></script>
+  <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <script src="/assets/vendor/venobox/venobox.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
+    <script src="/__/firebase/init.js"></script>
+    
+  <header id="header" class="fixed-top"> 
+    <div class="container d-flex">
+      <div class="logo mr-auto">
+        <h1 class="text-light"><a href="/">Sympool (심풀)</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
+    </div>
+  </header>
+  <div id="unintend" style="padding:140px;">
+    의도하지 않은 접근입니다.
+    <a href="/">메인 페이지</a>로 이동해주세요.
+  </div>
+  <div id="password-reset" style="display:none;">
+    <div class="container">
+      <div style="max-width:500px; margin:auto">
+        <div class="passwordReset-box">
+          <h2 style="text-align:center;">비밀번호 재설정</h2>
+          <h6 id="passwordReset-errorMessage" class="text-center text-danger"></h6>
+          <form style="margin-top:20px">
+            <div class="form-group">
+              <label>비밀번호</label>
+              <input type="password" class="form-control" id="inputPassword1">
+            </div>
+            <div class="form-group">
+              <label>비밀번호 확인</label>
+              <input type="password" class="form-control" id="inputPassword2">
+            </div>
+            <div style="text-align: center; margin-top:30px;">
+              <button id="passwordReset-form__submit" type="submit" class="btn bg-poolda-primary" style="width:100%; color: #ffffff;">
+                <span>비밀번호 재설정하기</span>
+                <div id="passwordReset-form__submit__spinner" class="spinner-border spinner-border-sm" role="status" style="display:none">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="email-verification" style="display:none; padding:140px;">
+    이메일 인증 중 입니다. <br/>인증이 완료되면 메인페이지로 이동됩니다.
+  </div>
+</body>
+<script src="/assets/js/auth.min.js"></script>
+</html>

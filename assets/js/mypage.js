@@ -8,7 +8,6 @@ function myPage() {
 
 myPage.prototype.logOut = function() {
   firebase.auth().signOut();
-  window.location.replace("/");
 }
 
 myPage.prototype.getCoin = function() {
