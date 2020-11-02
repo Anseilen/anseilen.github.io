@@ -1,0 +1,91 @@
+<div class="tab-charge">
+  <table class="table table-striped table-lg">
+    <caption>1 © = 음성인식 1회.</caption>
+    <caption style="padding-bottom: 5px;">풀다 음성인식 기능은 오디오 길이가 80분 이상 되는 파일을 지원하지 않습니다.</caption>
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">코인</th>
+        <th scope="col">가격</th>
+      </tr>
+    </thead>
+    <tbody>
+      <div class="form-check">
+        <tr>
+          <th scope="row">
+            <input class="form-check-input" type="radio" name="coinRadios" id="coinRadios1" value="4500" checked>
+          </th>
+          <td>1 ©</td>
+          <td>4,500 원</td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <input class="form-check-input" type="radio" name="coinRadios" id="coinRadios1" value="9000">
+          </th>
+          <td>2 ©</td>
+          <td>9,000 원</td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <input class="form-check-input" type="radio" name="coinRadios" id="coinRadios1" value="18000">
+          </th>
+          <td>4 ©</td>
+          <td>18,000 원</td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <input class="form-check-input" type="radio" name="coinRadios" id="coinRadios1" value="27000">
+          </th>
+          <td>6 ©</td>
+          <td>27,000 원</td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <input class="form-check-input" type="radio" name="coinRadios" id="coinRadios1" value="36000">
+          </th>
+          <td>8 ©</td>
+          <td>36,000 원</td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <input class="form-check-input" type="radio" name="coinRadios" id="coinRadios1" value="45000">
+          </th>
+          <td>10 ©</td>
+          <td>45,000 원</td>
+        </tr>
+      </div>
+    </tbody>
+  </table>
+  <div id="charge-method">
+    <h5>결제방법</h5>
+    <div id="charge-method__selection">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="methodRadios" id="methodRadios1" value="card" checked>
+        <label class="form-check-label" for="methodRadios1">
+          신용카드
+        </label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="methodRadios" id="methodRadios2" value="trans">
+        <label class="form-check-label" for="methodRadios2">
+          실시간 계좌이체
+        </label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="methodRadios" id="methodRadios3" value="vbank">
+        <label class="form-check-label" for="methodRadios3">
+          가상계좌 입금
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="methodRadios" id="methodRadios4" value="phone">
+        <label class="form-check-label" for="methodRadios4">
+          휴대폰 소액결제
+        </label>
+      </div>
+    </div>
+  </div>
+  <div style="text-align: center; margin-top:20px;">
+    <button id="charge-btn" type="button" class="btn btn-primary">결제하기</button>
+  </div>
+</div>

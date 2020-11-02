@@ -9,19 +9,33 @@
     </div>
 
     <nav class="nav-menu d-none d-lg-block">
-      {% if page.name == "index.html" or page.name == "pricing.html" %}
+      {% if page.name == "index.html" or "signin.html" or "pricing.html"%}
       <ul>
-        <li><a href="/#header">홈</a></li>
+        <li class="active"><a href="/#header">홈</a></li>
         <li><a href="/#features">기능</a></li>
         <li><a href="/#faq">자주 묻는 질문</a></li>
         <li><a href="/#contact">고객센터</a></li>
         <li><a href="/pricing">요금제</a></li>
 
-        <li class="get-started"><a href="/">다운받기</a></li>
+        <li class="get-started"><a href="/" style="margin: 0;">다운받기</a></li>
+        <li id="nav-account__btn" class="get-started nav-account__btn">
+          <a>
+            <div class="spinner-border spinner-border-sm" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </a>
+        </li>
       </ul>
       {% else %}
       <ul>
         <li class="get-started"><a href="/">다운받기</a></li>
+        <li id="nav-account__btn" class="get-started">
+          <a>
+            <div class="spinner-border spinner-border-sm" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </a>
+        </li>
       </ul>
       {% endif %}
     </nav><!-- .nav-menu -->

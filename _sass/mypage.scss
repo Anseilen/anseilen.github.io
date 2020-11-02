@@ -1,0 +1,84 @@
+#mypage {
+  width: 100%;
+  position: relative;
+  padding: 140px 0 100px 0;
+}
+
+.mypage_area {
+  max-width: 1000px;
+  margin:auto;
+  .account-info {
+    margin-bottom: 0.75rem;
+    padding: 50px;
+    background-color: rgba(225, 220, 217, 0.18);
+  }
+}
+
+
+#charge {
+  .tab-charge {
+    padding: 50px;
+  }
+  table {
+    max-width: 800px;
+    margin: auto;
+    padding-top: 10px;
+    .thead-dark th {
+      color: #ffffff;
+      background-color: #a67f78;
+      border-color: #a67f78;
+    }
+    th {
+      text-align: center;
+    }
+    td {
+      text-align: center;
+    }
+    td:nth-child(2) {
+      font-weight: bold;
+    }
+    input {
+      cursor: pointer;
+    }
+    caption {
+      caption-side: top;
+      padding-top: 0px;
+      padding-bottom: 0px;
+    }
+  }
+  #charge-method{
+    max-width: 800px;
+    margin:auto;
+    margin-top: 25px;
+    h5 {
+      margin-bottom: 10px;
+    }
+  }
+  #charge-method__selection {
+    margin-top: 20px;
+    input {
+      cursor: pointer;
+    }
+    .form-check {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  #mypage {
+    padding: 100px 0;
+  }
+  .account-info {
+    flex-direction: column !important;
+  }
+  .account-info__item {
+    margin-bottom: 1rem;
+  }
+  .account-info__item:last-child {
+    margin-bottom: 0px;
+  }
+  .tab-charge {
+    padding: 50px 10px !important;
+  }
+}

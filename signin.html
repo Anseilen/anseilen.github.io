@@ -1,0 +1,70 @@
+---
+layout: default
+title: 로그인 - 풀다 Poolda
+date: 2020-09-24 16:11:00
+lastmod: 2020-09-24 16:11:00
+---
+
+<main id="signin" class="d-flex align-items-center">
+  <div class="container">
+    <div style="max-width:500px; margin:auto;">
+      <div class="signin-box">
+        <h2 style="text-align:center;">로그인</h2>
+        <h6 id="signin-errorMessage" class="text-center text-danger"></h6> 
+        <form style="margin-top:20px;">
+          <div class="form-group">
+            <label>아이디(이메일)</label>
+            <input type="email" class="form-control" id="inputEmail">
+          </div>
+          <div class="form-group">
+            <label>비밀번호</label>
+            <input type="password" class="form-control" id="inputPassword">
+          </div>
+          <div style="text-align: center; margin-top:30px;">
+            <button id="signin-form__submit" type="submit" class="btn bg-poolda-primary" style="width:100%; color: #ffffff;">
+              <span>로그인</span>
+              <div id="signin-form__submit__spinner" class="spinner-border spinner-border-sm" role="status" style="display:none">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </button>
+          </div>
+        </form>
+        <div style="margin-top: 20px; text-align: center;">
+          <a href="" data-toggle="modal" data-target="#passwordForgetModal">비밀번호 찾기</a> |
+          <a href="/signup">회원가입</a>
+        </div>
+        {% comment %} <div style="margin-top: 20px">
+          <button id="google-signin" class="btn btn-default" style="border: 0.5px solid grey; width:100%">
+            <img src="https://img.icons8.com/color/48/000000/google-logo.png" style="float:left; width:24px;"/>
+            <span style="margin-left:10px;">구글 계정으로 로그인</span>
+          </button>
+        </div> {% endcomment %}
+      </div>
+    </div>
+  </div>
+</main>
+
+<div class="modal" id="passwordForgetModal" tabindex="-1" role="dialog" aria-labelledby="passwordForgetCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content" style="width:450px">
+      <div class="modal-body" style="text-align:center">
+        <h5 style="margin:20px;">비밀번호 찾기</h5>
+        <p> 아이디(이메일)을 입력해주세요. <br />
+        입력하신 이메일로 비밀번호 재설정 링크를 전송합니다.
+        </p>
+        <h6 id="passwordforget-errorMessage" class="text-center text-danger"></h6>
+        <form id="passwordforget-form" style="margin: 20px; margin-bottom:0px; text-align:left;">
+          <div class="form-group">
+            <label>아이디(이메일)</label>
+            <input type="email" class="form-control" id="passwordForgetEmail">
+          </div>
+          <div style="margin-top: 30px; text-align:center">
+            <button id="passwordforget-form__submit" type="submit" class="btn bg-poolda-primary" style="color:#ffffff; width: 30%">전송</div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/assets/js/signin.js"></script>
