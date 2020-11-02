@@ -2,15 +2,10 @@ import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 admin.initializeApp();
 import * as express from 'express';
+const cors = require('cors');
 const app = express();
 
-
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
-//
-// export const helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });
+app.use(cors({origin: true}));
 
 const authenticate = async (req: any, res: any, next: any) => {
   if(!req.headers.authorization || !req.headers.authorization.startsWith('Bearer ')) {
@@ -64,4 +59,4 @@ app.post('/api/register', async (req: any, res) => {
   })
 })
 
-exports.api = functions.region('asia-northeast1').https.onRequest(app);
+exports.api = functions.https.onRequest(app);

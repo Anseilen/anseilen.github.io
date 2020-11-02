@@ -32,34 +32,39 @@ signUp.prototype.submit= function(event) {
     $('#signup-form__submit__spinner').css('display','inline-block');
     const user = credential.user;
     user.sendEmailVerification()
-    firebase.auth().currentUser.getIdToken().then(function(token){
-      const request = {
-        method: 'POST',
-        url: '/api/register',
-        dataType: 'json',
-        contentType: 'application/json',
-        data: JSON.stringify(requestBody),
-        beforeSend: function(xhr){ xhr.setRequestHeader('Authorization', 'Bearer '+ token)}
-      }
-      return $.ajax(request).catch(function(error){
-        throw new Error('Request create account error:' + error)
+    firebase.auth().currentUser.getIdToken()
+      .then(function(token){
+        const request = {
+          method: 'POST',
+          url: '/api/register',
+          dataType: 'text',
+          contentType: 'application/json',
+          data: JSON.stringify(requestBody),
+          beforeSend: function(xhr){ xhr.setRequestHeader('Authorization', 'Bearer '+ token)},
+        }
+        return $.ajax(request)
+          .done(function(){
+            alert("인증메일을 보냈습니다. 확인해주세요.")
+            firebase.auth().signOut().then(function(){
+              window.location.replace("/");
+            });
+          })
+          .fail(function(qXHR, textStatus){
+            console.error(qXHR.status, textStatus);
+            alert("인증메일을 보냈습니다. 확인해주세요.")
+            firebase.auth().signOut().then(function(){
+              window.location.replace("/");
+            });
+          })
       })
-    })
-    .then(function(){
-      console.log("success")
-      firebase.auth().signOut().then(function(){
-        window.location.replace("/");
+      .catch(function(error){
+        console.error("error")
+        console.error(JSON.stringify(error));
+        firebase.auth().signOut().then(function(){
+          window.location.replace("/");
+        })
+        alert("")
       })
-
-      alert("인증메일이 전송되었습니다. 메일을 확인해주세요.")
-    })
-    .catch(function(){
-      console.error("error")
-      firebase.auth().signOut().then(function(){
-        window.location.replace("/");
-      })
-      alert("인증메일이 전송되었습니다. 메일을 확인해주세요.")
-    })    
   })
   .catch(function(error){
     let errorMessage;
