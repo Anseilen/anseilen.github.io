@@ -23,6 +23,7 @@ $(document).on("click", "#signin-form__submit", function(event){
         $("#signin-errorMessage").html(errorMessage);
       })
       firebase.auth().signOut();
+      sessionStorage.clear();
     }
   })
   .catch(function(error){

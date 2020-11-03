@@ -46,6 +46,7 @@ signUp.prototype.submit= function(event) {
           .done(function(){
             alert("인증메일을 보냈습니다. 확인해주세요.")
             firebase.auth().signOut().then(function(){
+              sessionStorage.clear();
               window.location.replace("/");
             });
           })
@@ -53,6 +54,7 @@ signUp.prototype.submit= function(event) {
             console.error(qXHR.status, textStatus);
             alert("인증메일을 보냈습니다. 확인해주세요.")
             firebase.auth().signOut().then(function(){
+              sessionStorage.clear();
               window.location.replace("/");
             });
           })
@@ -61,6 +63,7 @@ signUp.prototype.submit= function(event) {
         console.error("error")
         console.error(JSON.stringify(error));
         firebase.auth().signOut().then(function(){
+          sessionStorage.clear();
           window.location.replace("/");
         })
         alert("")

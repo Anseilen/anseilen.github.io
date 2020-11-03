@@ -27,7 +27,7 @@ const authenticate = async (req: any, res: any, next: any) => {
 app.use(authenticate);
 
 // GET /api/coin
-app.get('/coin',async (req: any, res) => {
+app.get('/api/coin',async (req: any, res) => {
   let query = admin.firestore().doc(`/users/${req.user.uid}`);
   const userData = await query.get();
   const coin = userData.get("coin");
