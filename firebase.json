@@ -12,6 +12,10 @@
         "function": "api"
       },
       {
+        "source":"/payments/**",
+        "function": "payments"
+      },
+      {
         "source": "/signin",
         "destination": "/signin.html"
       },

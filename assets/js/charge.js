@@ -27,34 +27,74 @@ chargeSection.prototype.setPrice = function(price) {
 chargeSection.prototype.charge = function(event) {
   var checkedPrice;
   var checkedMethod;
+  var merchant_uid = 'ans_' + new Date().getTime(); 
+  const buyerEmail = sessionStorage.getItem('eml')
   $("tbody input").each((i, item) => {
-    if($(item).is(":checked")) checkedPrice = item.value;
+    if($(item).is(":checked")) checkedPrice = +item.value;
   })
   $("#charge-method__selection input").each((i, ele) => {
     if($(ele).is(":checked")) checkedMethod = ele.value;
   })
-  IMP.request_pay({
-    pg : 'kcp', // version 1.1.0부터 지원.
-    pay_method : checkedMethod,
-    merchant_uid : 'merchant_' + new Date().getTime(),
-    name : '풀다 코인충전',
-    amount : checkedPrice,
-    buyer_email : '',
-    m_redirect_url : 'https://www.yourdomain.com/payments/complete'
-}, function(rsp) {
-    if ( rsp.success ) {
-        var msg = '결제가 완료되었습니다.';
-        msg += '고유ID : ' + rsp.imp_uid;
-        msg += '상점 거래ID : ' + rsp.merchant_uid;
-        msg += '결제 금액 : ' + rsp.paid_amount;
-        msg += '카드 승인번호 : ' + rsp.apply_num;
-    } else {
-        var msg = '결제에 실패하였습니다.';
-        msg += '에러내용 : ' + rsp.error_msg;
+  // checkedPrice = 100
+  firebase.auth().currentUser.getIdToken()
+  .then(function(token){
+    const request = {
+      method: 'POST',
+      url: '/payments/request',
+      dataType: 'text',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        merchant_uid: merchant_uid,
+        amount: checkedPrice
+      }),
+      beforeSend: function(xhr){ xhr.setRequestHeader('Authorization', 'Bearer '+ token)}
     }
-    alert(msg);
-});
+    return $.ajax(request)
+    .done(function(){
+      IMP.request_pay({
+        pg : 'html_inicis',
+        pay_method : checkedMethod,
+        merchant_uid : merchant_uid,
+        name : `풀다 코인충전 ${checkedPrice}`,
+        amount : checkedPrice,
+        buyer_name: buyerEmail,
+        buyer_email : buyerEmail,
+      }, function(rsp) {
+          if ( rsp.success ) {
+              var msg = '결제가 완료되었습니다.';
+              msg += '고유ID : ' + rsp.imp_uid;
+              msg += '상점 거래ID : ' + rsp.merchant_uid;
+              msg += '결제 금액 : ' + rsp.paid_amount;
+              msg += '카드 승인번호 : ' + rsp.apply_num;
+              firebase.auth().currentUser.getIdToken()
+              .then(function(token){
+                $.ajax({
+                  method: "POST",
+                  url: "/payments/complete",
+                  contentType: "application/json",
+                  data: JSON.stringify({
+                    imp_uid: rsp.imp_uid,
+                    merchant_uid: rsp.merchant_uid,
+                  }),
+                  beforeSend: function(xhr){ xhr.setRequestHeader('Authorization', 'Bearer '+token)}
+                })
+                .done(function(data){
+                  sessionStorage.clear()
+                  window.location.replace("/charge")
+                })
+              })
+          } else {
+              var msg = '결제에 실패하였습니다.';
+              msg += '에러내용 : ' + rsp.error_msg;
+          }
+          alert(msg);
+      });
+    })
+    .fail(function(qXHR, textStatus){
+      console.error(qXHR.status, textStatus)
+      alert('충전에 실패했습니다. 다시 시도해주세요.')
+    })
+  }) 
 }
 
 window.ch = new chargeSection();
-
