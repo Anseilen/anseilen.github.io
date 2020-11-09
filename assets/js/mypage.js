@@ -7,6 +7,8 @@ function myPage() {
       if(sessionStorage.getItem('cn')) {
         $('#account-info__coin').text(sessionStorage.getItem('cn'));
       }
+    }else {
+      sessionStorage.removeItem('cn');
     }
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {

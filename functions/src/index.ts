@@ -62,6 +62,67 @@ generalApp.post('/api/register', async (req: any, res) => {
   })
 })
 
+// GET /api/charges
+generalApp.get('/api/charges', async (req: any, res) => {
+  const id = req.user.uid;
+  let lastVisiable = req.query.last ? req.query.last : "";
+  const size = 1;
+  type item = { id:string, date: any; coin: any; amount: any; cancelled: any; };
+  type resultType = {
+    url: string,
+    items: item[]
+  }
+  let result : resultType = {
+    url: '',
+    items: [],
+  }
+  let items: item[] = []
+  let itemSize = 0
+
+  if (!lastVisiable) {
+    const next = admin.firestore().collection(`/users/${id}/charges`).orderBy("chargedTime", "desc").limit(size);
+    await next.get().then((documentSnapshots) => {
+      itemSize = documentSnapshots.docs.length;
+      if(itemSize){
+        lastVisiable = documentSnapshots.docs[itemSize-1].id;
+      }
+      documentSnapshots.forEach(doc => {
+        items.push({
+          id: doc.id,
+          date: doc.get("chargedTime").toDate(),
+          coin: doc.get("chargedCoin"),
+          amount: doc.get("amount"),
+          cancelled: doc.get("cancelledCoin"),
+        })
+      })
+    })
+  } else {
+    const lastVisiableDoc = await admin.firestore().doc(`/users/${id}/charges/${lastVisiable}`).get();
+    if(!lastVisiableDoc.exists) return res.sendStatus(400);
+
+    const next = admin.firestore().collection(`/users/${id}/charges`).orderBy("chargedTime", "desc").startAfter(lastVisiableDoc).limit(size);
+    await next.get().then((documentSnapshots) => {
+      itemSize = documentSnapshots.docs.length
+      if(itemSize){
+        lastVisiable = documentSnapshots.docs[itemSize-1].id;
+      }
+      documentSnapshots.forEach(doc => {
+        items.push({
+          id: doc.id,
+          date: doc.get("chargedTime").toDate(),
+          coin: doc.get("chargedCoin"),
+          amount: doc.get("amount"),
+          cancelled: doc.get("cancelledCoin")
+        })
+      })
+    })
+  }
+
+  result.url = `/api/charges?lastVisible=${lastVisiable}&size=${itemSize}`
+  result.items = items
+
+  return res.status(200).send(result);
+})
 
 //POST /payments/request
 paymentsApp.post('/payments/request', async (req:any, res) => {
