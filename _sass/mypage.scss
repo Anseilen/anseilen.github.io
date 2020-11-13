@@ -65,8 +65,10 @@
   }
 }
 
-#chaList {
-  .tab-chaList {
+
+
+#chaList, #useList {
+  .tab-chaList, .tab-useList {
     padding: 50px;
   }
   table {
@@ -80,10 +82,13 @@
     }
   }
   tr {
-    display: flex;
+    display: -ms-flexbox !important;
+    display: flex !important; 
   }
   th, td {
-    flex-grow: 1;
+    -ms-flex: 1 1 auto !important; 
+    flex: 1 1 auto !important;
+    display: block;
   }
   tbody {
     height: 500px;
@@ -97,15 +102,17 @@
   td {
     text-align: center;
   }
+  td:nth-child(1) {
+    max-width: 25%;
+  }
   td:nth-child(2) {
     font-weight: bold;
+    max-width: 25%;
   }
   td:nth-child(3) {
-    max-width: 200px;
+    max-width: 25%;
   }
   td:nth-child(4) {
-    max-width: 235px;
-    flex-grow: 2;
     color: red;
   }
   input {
@@ -115,6 +122,19 @@
     caption-side: top;
     padding-top: 0px;
     text-align: right;
+  }
+}
+
+#useList {
+  td:nth-child(1) {
+    max-width: 35%;
+  }
+  td:nth-child(2) {
+    word-wrap: break-word;
+    max-width: 35%;
+  }
+  td:nth-child(3) {
+    max-width: 35%;
   }
 }
 

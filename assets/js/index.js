@@ -1,5 +1,5 @@
 !(function($){
-  const appVersion = navigator.appVersion;
+  var appVersion = navigator.appVersion;
   if (appVersion.indexOf("Win") != -1 && (appVersion.indexOf("x64") != -1 || appVersion.indexOf("Win64") != -1 || appVersion.indexOf("WOW64") != -1)) {
     console.log("windows 64");
     document.getElementById("download-windows-64").style.display = "block";

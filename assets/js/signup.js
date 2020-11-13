@@ -12,16 +12,16 @@ function signUp() {
 signUp.prototype.submit= function(event) {
   event.preventDefault();
   this.$signupErrorMessage.text('');
-  const password1 = $("#inputPassword1").val()
-  const password2 = $("#inputPassword2").val()
+  var password1 = $("#inputPassword1").val()
+  var password2 = $("#inputPassword2").val()
   if(password1 !== password2) {
-    const errorMessage = "비밀번호가 일치하지 않습니다."
+    var errorMessage = "비밀번호가 일치하지 않습니다."
     this.$signupErrorMessage.text(errorMessage);
     return;
   }
-  const requestBody = {}
-  const email = $("#inputEmail").val();
-  const password = password1;
+  var requestBody = {}
+  var email = $("#inputEmail").val();
+  var password = password1;
   requestBody.email = email;
   requestBody.phone = $("#inputPhone").val();
   requestBody.gender = $("#signup-form input[name=genderRadios]:checked").val();
@@ -30,11 +30,11 @@ signUp.prototype.submit= function(event) {
   .then(function(credential) {
     $('#signup-form__submit').attr('disabled',true);
     $('#signup-form__submit__spinner').css('display','inline-block');
-    const user = credential.user;
+    var user = credential.user;
     user.sendEmailVerification()
     firebase.auth().currentUser.getIdToken()
       .then(function(token){
-        const request = {
+        var request = {
           method: 'POST',
           url: '/api/register',
           dataType: 'text',
@@ -85,7 +85,7 @@ signUp.prototype.submit= function(event) {
 }
 
 signUp.prototype.createProfile = function(requestBody, token){
-  const request = {
+  var request = {
     method: 'POST',
     url: '/api/register',
     dataType: 'json',

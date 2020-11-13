@@ -15,7 +15,7 @@ function myPage() {
           // User is signed in.
           if(!sessionStorage.getItem('cn')) {
             user.getIdToken().then(function(token){
-              const request = {
+              var request = {
                 method: 'GET',
                 url: '/api/coin',
                 dataType: 'json',
@@ -43,7 +43,7 @@ myPage.prototype.logOut = function() {
 myPage.prototype.getCoin = function() {
   firebase.auth().currentUser.getIdToken()
   .then(function(token){
-    const request = {
+    var request = {
       method: 'GET',
       url: '/api/coin',
       dataType: 'json',

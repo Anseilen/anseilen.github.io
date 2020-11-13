@@ -18,9 +18,9 @@ function chargeSection() {
 
 chargeSection.prototype.setPrice = function(price) {
   if(price) {
-    $("#charge-btn").text(`${price.slice(0,-3) + ',' + price.slice(-3)}원 결제하기`);
+    $("#charge-btn").text(''+price.slice(0,-3)+ ' ,' + price.slice(-3)+'원 결제하기');
   } else {
-    $("#charge-btn").text(`결제하기`);
+    $("#charge-btn").text('결제하기');
   } 
 }
 
@@ -28,17 +28,17 @@ chargeSection.prototype.charge = function(event) {
   var checkedPrice;
   var checkedMethod;
   var merchant_uid = 'ans_' + new Date().getTime(); 
-  const buyerEmail = sessionStorage.getItem('eml')
-  $("tbody input").each((i, item) => {
+  var buyerEmail = sessionStorage.getItem('eml')
+  $("tbody input").each(function(i, item){
     if($(item).is(":checked")) checkedPrice = +item.value;
   })
-  $("#charge-method__selection input").each((i, ele) => {
+  $("#charge-method__selection input").each(function(i, ele) {
     if($(ele).is(":checked")) checkedMethod = ele.value;
   })
   // checkedPrice = 100
   firebase.auth().currentUser.getIdToken()
   .then(function(token){
-    const request = {
+    var request = {
       method: 'POST',
       url: '/payments/request',
       dataType: 'text',
@@ -55,7 +55,7 @@ chargeSection.prototype.charge = function(event) {
         pg : 'html_inicis',
         pay_method : checkedMethod,
         merchant_uid : merchant_uid,
-        name : `풀다 코인충전 ${checkedPrice}`,
+        name : '풀다 코인충전 '+checkedPrice,
         amount : checkedPrice,
         buyer_name: buyerEmail,
         buyer_email : buyerEmail,

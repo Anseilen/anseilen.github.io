@@ -65,8 +65,8 @@ generalApp.post('/api/register', async (req: any, res) => {
 // GET /api/charges
 generalApp.get('/api/charges', async (req: any, res) => {
   const id = req.user.uid;
-  let lastVisiable = req.query.last ? req.query.last : "";
-  const size = 1;
+  let lastVisible = req.query.last ? req.query.last : "";
+  const size = 10;
   type item = { id:string, date: any; coin: any; amount: any; cancelled: any; };
   type resultType = {
     url: string,
@@ -76,15 +76,15 @@ generalApp.get('/api/charges', async (req: any, res) => {
     url: '',
     items: [],
   }
-  let items: item[] = []
-  let itemSize = 0
+  let items: item[] = [];
+  let itemSize = 0;
 
-  if (!lastVisiable) {
+  if (!lastVisible) {
     const next = admin.firestore().collection(`/users/${id}/charges`).orderBy("chargedTime", "desc").limit(size);
     await next.get().then((documentSnapshots) => {
       itemSize = documentSnapshots.docs.length;
       if(itemSize){
-        lastVisiable = documentSnapshots.docs[itemSize-1].id;
+        lastVisible = documentSnapshots.docs[itemSize-1].id;
       }
       documentSnapshots.forEach(doc => {
         items.push({
@@ -97,14 +97,14 @@ generalApp.get('/api/charges', async (req: any, res) => {
       })
     })
   } else {
-    const lastVisiableDoc = await admin.firestore().doc(`/users/${id}/charges/${lastVisiable}`).get();
-    if(!lastVisiableDoc.exists) return res.sendStatus(400);
+    const lastVisibleDoc = await admin.firestore().doc(`/users/${id}/charges/${lastVisible}`).get();
+    if(!lastVisibleDoc.exists) return res.status(404).send("document not found.");
 
-    const next = admin.firestore().collection(`/users/${id}/charges`).orderBy("chargedTime", "desc").startAfter(lastVisiableDoc).limit(size);
+    const next = admin.firestore().collection(`/users/${id}/charges`).orderBy("chargedTime", "desc").startAfter(lastVisibleDoc).limit(size);
     await next.get().then((documentSnapshots) => {
       itemSize = documentSnapshots.docs.length
       if(itemSize){
-        lastVisiable = documentSnapshots.docs[itemSize-1].id;
+        lastVisible = documentSnapshots.docs[itemSize-1].id;
       }
       documentSnapshots.forEach(doc => {
         items.push({
@@ -118,8 +118,74 @@ generalApp.get('/api/charges', async (req: any, res) => {
     })
   }
 
-  result.url = `/api/charges?lastVisible=${lastVisiable}&size=${itemSize}`
+  result.url = `/api/charges?lastVisible=${lastVisible}&size=${itemSize}`
   result.items = items
+
+  return res.status(200).send(result);
+})
+// GET /api/usages
+generalApp.get('/api/usages', async(req: any, res) => {
+  const id = req.user.uid;
+  let lastVisible = req.query.last ? req.query.last : "";
+  const size = 10;
+  type item = {id:string, requestDate: any, endDate: any, name: string, status: string};
+  type resultType = {
+    url: string,
+    items: item[],
+  }
+  let result : resultType = {
+    url: '',
+    items: [],
+  }
+  let items: item[] = [];
+  let itemSize = 0;
+
+  if (!lastVisible) {
+    const next = admin.firestore().collection(`/users/${id}/stts`).where("state", "in", ["Succeeded", "Running", "Ready"]).orderBy("requestTime", "desc").limit(size);
+    await next.get().then((documentSnapshots) => {
+      itemSize = documentSnapshots.docs.length;
+      if(itemSize){
+        lastVisible = documentSnapshots.docs[itemSize-1].id;
+      }
+      documentSnapshots.forEach(doc => {
+        const raw_id = doc.get("initAudioPath") ? doc.get("initAudioPath").split(/[/,\\]/).pop() : doc.get("sttUid")
+        items.push({
+          id: doc.id,
+          requestDate: doc.get("requestTime").toDate(),
+          endDate: doc.get("endTime") ? doc.get("endTime").toDate() : "",
+          name: raw_id,
+          status: doc.get("state"),
+        });
+      });
+    })
+  } else {
+    const lastVisibleDoc = await admin.firestore().doc(`/users/${id}/stts/${lastVisible}`).get();
+    if(!lastVisibleDoc.exists) return res.status(404).send("document not found");
+
+    const next = admin.firestore().collection(`/users/${id}/stts`)
+      .where("state", "in", ["Succeeded", "Running", "Ready"])
+      .orderBy("requestTime", "desc")
+      .startAfter(lastVisibleDoc)
+      .limit(size);
+    await next.get().then((documentSnapshots) => {
+      itemSize = documentSnapshots.docs.length
+      if(itemSize) {
+        lastVisible = documentSnapshots.docs[itemSize-1].id;
+      }
+      documentSnapshots.forEach(doc => {
+        const raw_id = doc.get("initAudioPath") ? doc.get("initAudioPath").split(/[/,\\]/).pop() : doc.get("sttUid").slice(0,8)
+        items.push({
+          id: doc.id,
+          requestDate: doc.get("requestTime").toDate(),
+          endDate: doc.get("endTime") ? doc.get("endTime").toDate() : "",
+          name: raw_id,
+          status: doc.get("state"),
+        });
+      });
+    });
+  }
+  result.url = `/api/usages?lastVisible=${lastVisible}&size=${itemSize}`;
+  result.items = items;
 
   return res.status(200).send(result);
 })

@@ -20,7 +20,7 @@ function auth() {
       $("#unintend").css("display", "none");
       $("#password-reset").css("display", "block");
       this.$passwordResetErrorMessage = $("#passwordReset-errorMessage")
-      const passwordResetSubmit = $("#passwordReset-form__submit");
+      var passwordResetSubmit = $("#passwordReset-form__submit");
 
       passwordResetSubmit.on("click", this.passwordResetSubmit.bind(this));
     }
@@ -28,10 +28,10 @@ function auth() {
 }
 
 auth.prototype.getParams = function(name){
-  const url = window.location.href;
-  const filteredname = name.replace(/[\[\]]/g, '\\$&');
-  const regex = new RegExp('[?&]' + filteredname + '(=([^&#]*)|&|#|$)');
-  const results = regex.exec(url);
+  var url = window.location.href;
+  var filteredname = name.replace(/[\[\]]/g, '\\$&');
+  var regex = new RegExp('[?&]' + filteredname + '(=([^&#]*)|&|#|$)');
+  var results = regex.exec(url);
   if(!results || !results[2]) throw new Error("Params error.")
   return decodeURIComponent(results[2].replace(/\+/g, ' '))
 }
@@ -39,10 +39,10 @@ auth.prototype.getParams = function(name){
 auth.prototype.passwordResetSubmit = function(event){
   event.preventDefault();
   this.$passwordResetErrorMessage.text('');
-  const password1 = $("#inputPassword1").val()
-  const password2 = $("#inputPassword2").val()
+  var password1 = $("#inputPassword1").val()
+  var password2 = $("#inputPassword2").val()
   if(password1 !== password2) {
-    const errorMessage = "비밀번호가 일치하지 않습니다."
+    var errorMessage = "비밀번호가 일치하지 않습니다."
     this.$passwordResetErrorMessage.text(errorMessage);
     return;
   }
