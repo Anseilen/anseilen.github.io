@@ -6,7 +6,10 @@ $(document).on("click", "#signin-form__submit", function(event){
   $("#signin-form__submit__spinner").css("display", "inline-block");
   var email = $("#inputEmail").val();
   var password = $("#inputPassword").val();
-  firebase.auth().signInWithEmailAndPassword(email,password)
+  firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+  .then(function(){
+    return firebase.auth().signInWithEmailAndPassword(email,password)
+  })
   .then(function(credential){
     $("#inputEmail").val('');
     $("#inputPassword").val('');
@@ -46,7 +49,6 @@ $(document).on("click", "#signin-form__submit", function(event){
     $("#signin-form__submit").attr("disabled", false);
     $("#signin-form__submit__spinner").css("display", "none");
   })
-
 })
 
 $(document).on("click", "#passwordforget-form__submit", function(event){
