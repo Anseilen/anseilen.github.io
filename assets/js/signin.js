@@ -4,9 +4,12 @@ $(document).on("click", "#signin-form__submit", function(event){
   event.preventDefault();
   $("#signin-form__submit").attr("disabled", true);
   $("#signin-form__submit__spinner").css("display", "inline-block");
-  const email = $("#inputEmail").val();
-  const password = $("#inputPassword").val();
-  firebase.auth().signInWithEmailAndPassword(email,password)
+  var email = $("#inputEmail").val();
+  var password = $("#inputPassword").val();
+  firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+  .then(function(){
+    return firebase.auth().signInWithEmailAndPassword(email,password)
+  })
   .then(function(credential){
     $("#inputEmail").val('');
     $("#inputPassword").val('');
@@ -14,15 +17,16 @@ $(document).on("click", "#signin-form__submit", function(event){
     $("#signin-form__submit__spinner").css("display", "none");
     if(!credential.user.emailVerified){
       credential.user.sendEmailVerification()
-      .then(() => {
-        const errorMessage = "<p>인증되지 않은 이메일(아이디)입니다.<br/>입력하신 이메일로 인증메일을 전송하였습니다.</p>"
+      .then(function (){
+        var errorMessage = "<p>인증되지 않은 이메일(아이디)입니다.<br/>입력하신 이메일로 인증메일을 전송하였습니다.</p>"
         $("#signin-errorMessage").html(errorMessage);
       })
-      .catch(() => {
-        const errorMessage = "<p>인증되지 않은 이메일(아이디)입니다.<br/>잠시후 다시 시도해주시면 인증메일이 전송됩니다.</p>"
+      .catch(function() {
+        var errorMessage = "<p>인증되지 않은 이메일(아이디)입니다.<br/>잠시후 다시 시도해주시면 인증메일이 전송됩니다.</p>"
         $("#signin-errorMessage").html(errorMessage);
       })
       firebase.auth().signOut();
+      sessionStorage.clear();
     }
   })
   .catch(function(error){
@@ -45,12 +49,11 @@ $(document).on("click", "#signin-form__submit", function(event){
     $("#signin-form__submit").attr("disabled", false);
     $("#signin-form__submit__spinner").css("display", "none");
   })
-
 })
 
 $(document).on("click", "#passwordforget-form__submit", function(event){
   event.preventDefault();
-  const email = $("#passwordForgetEmail").val();
+  var email = $("#passwordForgetEmail").val();
   firebase.auth().sendPasswordResetEmail(email)
   .then(function(){
     $("#passwordforget-errorMessage").text('');

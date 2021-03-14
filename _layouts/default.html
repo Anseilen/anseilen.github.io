@@ -48,7 +48,9 @@
 
 <body>
   <!-- Vendor JS Files -->
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.12.1/polyfill.min.js" integrity="sha512-uzOpZ74myvXTYZ+mXUsPhDF+/iL/n32GDxdryI2SJronkEyKC8FBFRLiBQ7l7U/PTYebDbgTtbqTa6/vGtU23A==" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>
   <script src="/assets/vendor/jquery/jquery.min.js"></script>
   <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
@@ -63,14 +65,14 @@
   <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
   {% include navigation.html %}
-  <script src="/assets/js/init.js"></script>
+  <script src="/assets/js/dist/init.min.js"></script>
 
   {{ content }}
 
   {% include footer.html %}
 
     <!-- Template Main JS File -->
-    <script src="/assets/js/main.js"></script>
+    <script src="/assets/js/dist/main.min.js"></script>
 </body>
 
 </html>

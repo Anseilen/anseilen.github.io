@@ -65,6 +65,79 @@
   }
 }
 
+
+
+#chaList, #useList {
+  .tab-chaList, .tab-useList {
+    padding: 50px;
+  }
+  table {
+    width: 100%;
+    margin: auto;
+    padding-top: 10px;
+    .thead-dark th {
+      color: #ffffff;
+      background-color: #a67f78;
+      border-color: #a67f78;
+    }
+  }
+  tr {
+    display: -ms-flexbox !important;
+    display: flex !important; 
+  }
+  th, td {
+    -ms-flex: 1 1 auto !important; 
+    flex: 1 1 auto !important;
+    display: block;
+  }
+  tbody {
+    height: 500px;
+    overflow-y: auto;
+    width: 100%;
+    display: block;
+  }
+  th {
+    text-align: center;
+  }
+  td {
+    text-align: center;
+  }
+  td:nth-child(1) {
+    max-width: 25%;
+  }
+  td:nth-child(2) {
+    font-weight: bold;
+    max-width: 25%;
+  }
+  td:nth-child(3) {
+    max-width: 25%;
+  }
+  td:nth-child(4) {
+    color: red;
+  }
+  input {
+    cursor: pointer;
+  }
+  caption {
+    caption-side: top;
+    padding-top: 0px;
+    text-align: right;
+  }
+}
+
+#useList {
+  td:nth-child(1) {
+    max-width: 35%;
+  }
+  td:nth-child(2) {
+    word-wrap: break-word;
+    max-width: 35%;
+  }
+  td:nth-child(3) {
+    max-width: 35%;
+  }
+}
+
 @media (max-width: 575px) {
   #mypage {
     padding: 100px 0;
