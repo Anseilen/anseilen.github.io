@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "poolda-test-270302"
+    "default": "poolda-test-270302",
+    "sympool": "sympool",
   }
 }
